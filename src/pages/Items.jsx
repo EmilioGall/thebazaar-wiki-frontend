@@ -1,12 +1,12 @@
 import React from 'react';
 
-function About() {
+function Items() {
 
    return (
 
       <div className="container mx-auto">
 
-         <h1 className="text-2xl font-bold">About Page</h1>
+         <h1 className="text-2xl font-bold">Items Page</h1>
 
       </div>
 
@@ -14,4 +14,4 @@ function About() {
 
 }
 
-export default About;
+export default Items;
