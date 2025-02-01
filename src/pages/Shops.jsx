@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Items() {
+function Shops() {
 
    return (
 
       <div className="container mx-auto my-5">
 
-         <h1 className="text-2xl font-bold">Items Page</h1>
+         <h1 className="text-2xl font-bold">Shops Page</h1>
 
       </div>
 
@@ -14,4 +14,4 @@ function Items() {
 
 }
 
-export default Items;
+export default Shops;

@@ -20,7 +20,7 @@ function Home() {
 
    return (
 
-      <div className="container mx-auto">
+      <div className="container mx-auto my-5">
 
          <h1 className="text-2xl font-bold">Home Page</h1>
 
