@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from '../features/exampleSlice';
 import axios from '../api/thebazaar-source';
 import ItemCard from '../components/ItemCard';
 
 function Items() {
 
    const [items, setItems] = useState([]);
-   const [effects, setEffects] = useState([]);
    const [loading, setLoading] = useState(true);
    const [loadingError, setLoadingError] = useState(null);
 
@@ -24,8 +21,6 @@ function Items() {
          console.log('result', result);
 
          setItems(result.items);
-
-         setEffects(result.effects);
 
       } catch (err) {
 
@@ -46,8 +41,6 @@ function Items() {
    }, []);
 
    console.log('items', items);
-
-   console.log('effects', effects);
 
    return (
 
@@ -71,12 +64,12 @@ function Items() {
                : null
          }
 
-         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 my-5">
+         <div className="flex flex-col gap-5 my-5">
 
             {
                items.map((item) => (
 
-                  <ItemCard key={item.id} item={item} effects={effects}/>
+                  <ItemCard key={item.id} item={item} />
 
                ))
             }
