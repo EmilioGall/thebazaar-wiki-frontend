@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-export default function ItemCard({ item, effects }) {
+export default function ItemCard({ item }) {
 
    // console.log('item', item);
-
-   const [itemEffects, setItemEffects] = useState([]);
-
 
    function getItemImagePlaceholder() {
 
@@ -42,69 +39,108 @@ export default function ItemCard({ item, effects }) {
 
    };
 
-   const imageUrl = item.img ? item.img : getItemImagePlaceholder();
-
-   function getItemEffects() {
-
-      let itemEffects = [];
-
-      effects.forEach(effect => {
-
-         if (effect.item_id === item.id) {
-
-            itemEffects.push(effect);
-
-         };
-
-      });
-
-      setItemEffects(itemEffects);
-
-   };
-
-   console.log('itemEffects', itemEffects);
+   const imageUrl = item.item_img ? item.item_img : getItemImagePlaceholder();
 
    return (
-      <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+      <div className="w-full border rounded overflow-hidden shadow-md bg-white">
 
-         <div className="flex justify-center">
+         <div className='flex justify-between gap-4'>
 
-            <img className="h-28 text-center" src={imageUrl} alt={item.item_name} />
+            <div>
+
+               <div className="px-4 py-2">
+
+                  <div className="font-bold text-xl mb-2">{item.item_name}</div>
+
+                  {
+                     item.tiers[0].effects.map((effect) => (
+                        <p key={effect.id} className="text-gray-700 text-base">
+                           {effect.effect_description}
+                        </p>
+                     ))
+                  }
+
+               </div>
+
+               <div className="flex gap-4 px-4 py-2">
+
+                  {
+                     item.item_cooldown ?
+
+                        <div>
+
+                           <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 me-2">
+
+                              {item.item_cooldown}.00 s
+
+                           </span>
+
+                           Cooldown
+                        </div>
+                        : null
+                  }
+
+                  {
+                     item.item_max_ammo ?
+
+                        <div>
+
+                           <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 me-2">
+
+                              {item.item_max_ammo}
+
+                           </span>
+
+                           Ammo
+                        </div>
+                        : null
+                  }
+
+                  {
+                     item.item_multicast ?
+
+                        <div>
+
+                           <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 me-2">
+
+                              {item.item_multicast}x
+
+                           </span>
+
+                           Multicast
+                        </div>
+                        : null
+                  }
+
+               </div>
+
+            </div>
+
+            <div className="px-4 py-2">
+
+               <img className="h-28 text-center" src={imageUrl} alt={item.item_name} />
+
+            </div>
 
          </div>
 
-         <div className="px-6 py-4">
-
-            <div className="font-bold text-xl mb-2">{item.item_name}</div>
-
+         <div className="grid grid-cols-5 gap-2 px-4 py-2">
 
             {
-               itemEffects ?
+               item.enchantments ?
 
-                  itemEffects.map((item) => (
-                     <p className="text-gray-700 text-base">
-                        blabla
-                     </p>
+                  item.enchantments.map((enchantment) => (
+                     <div key={enchantment.id} className="inline-block bg-gray-200 rounded-lg px-3 py-1 text-gray-700">
+
+                        <h4 className='text-sm font-bold'>{enchantment.enchantment_name}</h4>
+
+                        <p className='text-xs '>{enchantment.enchantment_description}</p>
+
+                     </div>
                   ))
 
                   : null
             }
-
-
-         </div>
-
-         <div className="px-6 pt-4 pb-2">
-
-
-            {
-               item.item_cooldown ?
-
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                     {item.item_cooldown}.00 s
-                  </span>
-                  : null
-            }
-
 
          </div>
 
