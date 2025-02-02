@@ -41,6 +41,50 @@ export default function ItemCard({ item }) {
 
    const imageUrl = item.item_img ? item.item_img : getItemImagePlaceholder();
 
+   function replacePlaceholders(description, primaryValues, secondaryValues) {
+
+      if (primaryValues.length > 0) {
+
+         description = description.replace('{ n1 }', `( ${primaryValues.join(' > ')} )`);
+
+      }
+
+      if (secondaryValues.length > 0) {
+
+         description = description.replace('{ n2 }', `( ${secondaryValues.join(' > ')} )`);
+
+      }
+
+      return description;
+
+   };
+
+   function getValuesForEffect(effectId, valueType) {
+      const values = item.tiers
+         .flatMap(tier => tier.effects)
+         .filter(effect => effect.id === effectId)
+         .map(effect => effect.pivot[valueType])
+         .filter(value => value !== null);
+
+      return values;
+   }
+
+   // const uniqueEffects = item.tiers
+   //    .flatMap(tier => tier.effects)
+   //    .reduce((acc, effect) => {
+
+   //       if (!acc.find(e => e.id === effect.id)) {
+
+   //          acc.push(effect);
+
+   //       }
+
+   //       return acc;
+
+   //    }, []);
+
+    
+
    return (
       <div className="w-full border rounded overflow-hidden shadow-md bg-white">
 
@@ -53,11 +97,23 @@ export default function ItemCard({ item }) {
                   <div className="font-bold text-xl mb-2">{item.item_name}</div>
 
                   {
-                     item.tiers[0].effects.map((effect) => (
-                        <p key={effect.id} className="text-gray-700 text-base">
-                           {effect.effect_description}
-                        </p>
-                     ))
+                     // uniqueEffects.map((effect, index) => {
+
+                     //    const primaryValues = getValuesForEffect(effect.id, 'primary_value');
+
+                     //    const secondaryValues = getValuesForEffect(effect.id, 'secondary_value');
+
+                     //    return (
+
+                     //       <p key={index} className="text-gray-700 text-base">
+
+                     //          {replacePlaceholders(effect.effect_description, primaryValues, secondaryValues)}
+
+                     //       </p>
+
+                     //    );
+
+                     // })
                   }
 
                </div>
