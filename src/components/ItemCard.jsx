@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 export default function ItemCard({ item }) {
 
-   // console.log('item', item);
+   console.log('item', item);
+   console.log('item.item_tiers[0].effects', item.item_tiers[0].effects);
+
 
    function getItemImagePlaceholder() {
 
@@ -59,32 +61,6 @@ export default function ItemCard({ item }) {
 
    };
 
-   function getValuesForEffect(effectId, valueType) {
-      const values = item.tiers
-         .flatMap(tier => tier.effects)
-         .filter(effect => effect.id === effectId)
-         .map(effect => effect.pivot[valueType])
-         .filter(value => value !== null);
-
-      return values;
-   }
-
-   // const uniqueEffects = item.tiers
-   //    .flatMap(tier => tier.effects)
-   //    .reduce((acc, effect) => {
-
-   //       if (!acc.find(e => e.id === effect.id)) {
-
-   //          acc.push(effect);
-
-   //       }
-
-   //       return acc;
-
-   //    }, []);
-
-    
-
    return (
       <div className="w-full border rounded overflow-hidden shadow-md bg-white">
 
@@ -97,23 +73,21 @@ export default function ItemCard({ item }) {
                   <div className="font-bold text-xl mb-2">{item.item_name}</div>
 
                   {
-                     // uniqueEffects.map((effect, index) => {
+                     item.item_tiers ?
+                        item.item_tiers[0].effects.map((effect, index) => {
 
-                     //    const primaryValues = getValuesForEffect(effect.id, 'primary_value');
+                           return (
 
-                     //    const secondaryValues = getValuesForEffect(effect.id, 'secondary_value');
+                              <p key={index} className="text-gray-700 text-base">
 
-                     //    return (
+                                 {effect.effect_description}
 
-                     //       <p key={index} className="text-gray-700 text-base">
+                              </p>
 
-                     //          {replacePlaceholders(effect.effect_description, primaryValues, secondaryValues)}
+                           );
 
-                     //       </p>
-
-                     //    );
-
-                     // })
+                        })
+                        : null
                   }
 
                </div>

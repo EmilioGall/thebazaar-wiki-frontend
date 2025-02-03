@@ -40,7 +40,7 @@ function Items() {
 
    }, []);
 
-   console.log('items', items);
+   // console.log('items', items);
 
    return (
 
