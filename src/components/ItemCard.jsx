@@ -71,6 +71,28 @@ export default function ItemCard({ item }) {
                   <div className="font-bold text-xl mb-2">{item.item_name}</div>
 
                   {
+                     item.tags ?
+                        <div className='flex gap-2'>
+                           {
+                              item.tags.map((tag, index) => {
+
+                                 return (
+
+                                    <p key={index} className="text-gray-700 text-base border p-1">
+
+                                       {tag.tag_name}
+
+                                    </p>
+
+                                 );
+
+                              })
+                           }
+                        </div>
+                        : null
+                  }
+
+                  {
                      item.item_tiers ?
                         item.item_tiers[0].effects.map((effect, index) => {
 
