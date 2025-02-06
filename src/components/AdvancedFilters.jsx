@@ -2,133 +2,105 @@ import React from 'react';
 
 function AdvancedFilters({ filters, onFilterChange, tiers, tags, heroes }) {
 
-    const groupedTags = tags.reduce((acc, tag) => {
+    // const groupedTags = tags.reduce((acc, tag) => {
 
-        (acc[tag.tag_type] = acc[tag.tag_type] || []).push(tag);
+    //     (acc[tag.tag_type] = acc[tag.tag_type] || []).push(tag);
 
-        return acc;
+    //     return acc;
 
-    }, {});
+    // }, {});
 
-    console.log('groupedTags', groupedTags);
+    // console.log('groupedTags', groupedTags);
 
     return (
-        <div className="mt-5 p-5 border border-gray-300 rounded">
+        <div className="p-4 bg-gray-100 rounded">
+            <h3 className="text-lg font-bold mb-2">Advanced Filters</h3>
 
-            <h2 className="text-xl font-bold mb-3">Advanced Filters</h2>
+            <div className="mb-4">
+                <h4 className="font-semibold mb-2">Heroes</h4>
 
-            <div className="flex flex-col gap-3">
-
-                <div>
+                <div className="flex items-center gap-4">
                     {
-                        Object.keys(groupedTags).map((tagType) => (
-
-                            <div key={tagType}>
-
-                                <label className="block text-gray-700">{tagType.charAt(0).toUpperCase() + tagType.slice(1)}:</label>
-
-                                <div className="flex flex-wrap gap-2">
-                                    {
-                                        groupedTags[tagType].map((tag) => (
-
-                                            <label key={tag.id} className="flex items-center">
-
-                                                <input
-                                                    type="checkbox"
-                                                    name="tagTypes"
-                                                    value={tag.tag_type + ':' + tag.tag_name}
-                                                    checked={filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name)}
-                                                    onChange={onFilterChange}
-                                                    className="mr-2"
-                                                />
-
-                                                {tag.tag_name}
-
-                                            </label>
-
-                                        ))
-                                    }
-                                </div>
-
+                        heroes.map((hero) => (
+                            <div key={hero.id} className="flex items-center mb-1">
+                                <input
+                                    type="checkbox"
+                                    name="heroNames"
+                                    value={hero.hero_name}
+                                    checked={filters.heroNames.includes(hero.hero_name)}
+                                    onChange={onFilterChange}
+                                    className="mr-2"
+                                />
+                                <label>{hero.hero_name}</label>
                             </div>
-
                         ))
                     }
                 </div>
+            </div>
 
-                <div>
-
-                    <label className="block text-gray-700">Min Tier:</label>
-
-                    <select
-                        name="minTierId"
-                        value={filters.minTierId || ''}
-                        onChange={onFilterChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                    >
-
-                        <option value="">Select Tier</option>
-                        {
-                            tiers.map((tier) => (
-                                <option key={tier.id} value={tier.id}>
-                                    {tier.name}
-                                </option>
-                            ))
-                        }
-
-                    </select>
-
+            <div className="mb-4">
+                <h4 className="font-semibold mb-2">Tiers</h4>
+                <div className="flex items-center gap-4">
+                    {
+                        tiers.map((tier) => (
+                            <div key={tier.id} className="flex items-center mb-1">
+                                <input
+                                    type="checkbox"
+                                    name="minTierNames"
+                                    value={tier.tier_name}
+                                    checked={filters.minTierNames.includes(tier.tier_name)}
+                                    onChange={onFilterChange}
+                                    className="mr-2"
+                                />
+                                <label>{tier.tier_name}</label>
+                            </div>
+                        ))
+                    }
                 </div>
+            </div>
 
-                <div>
+            <div className="mb-4">
+                <h4 className="font-semibold mb-2">Sizes</h4>
 
-                    <label className="block text-gray-700">Item Size:</label>
-
-                    <select
-                        name="minTierSize"
-                        value={filters.minTierSize || ''}
-                        onChange={onFilterChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                    >
-
-                        <option value="">Select Size</option>
-                        {
-                            tiers.map((tier) => (
-                                <option key={tier.id} value={tier.tier_size}>
-                                    {tier.tier_size}
-                                </option>
-                            ))
-                        }
-
-                    </select>
-
+                <div className="flex items-center gap-4">
+                    {
+                        ['small', 'medium', 'large'].map((size) => (
+                            <div key={size} className="flex items-center mb-1">
+                                <input
+                                    type="checkbox"
+                                    name="minTierSizes"
+                                    value={size}
+                                    checked={filters.minTierSizes.includes(size)}
+                                    onChange={onFilterChange}
+                                    className="mr-2"
+                                />
+                                <label>{size.charAt(0).toUpperCase() + size.slice(1)}</label>
+                            </div>
+                        ))
+                    }
                 </div>
+            </div>
 
-                <div>
-
-                    <label className="block text-gray-700">Hero:</label>
-
-                    <select
-                        name="heroId"
-                        value={filters.heroId || ''}
-                        onChange={onFilterChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                    >
-
-                        <option value="">Select Hero</option>
-                        {
-                            heroes.map((hero) => (
-                                <option key={hero.id} value={hero.id}>
-                                    {hero.name}
-                                </option>
-                            ))
-                        }
-
-                    </select>
+            <div className="mb-4">
+                <h4 className="font-semibold mb-2">Tags</h4>
+                <div className="flex items-center flex-wrap gap-2">
+                    {
+                        tags.map((tag) => (
+                            <div key={tag.id} className="flex items-center mb-1">
+                                <input
+                                    type="checkbox"
+                                    name="tagTypes"
+                                    value={tag.tag_type + ':' + tag.tag_name}
+                                    checked={filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name)}
+                                    onChange={onFilterChange}
+                                    className="mr-2"
+                                />
+                                <label>{tag.tag_name}</label>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>
     );
 }
-
-export default AdvancedFilters;
