@@ -6,7 +6,10 @@ import AdvancedFilters from '../components/AdvancedFilters';
 
 function Items() {
 
+   const [heroes, setHeroes] = useState([]);
    const [items, setItems] = useState([]);
+   const [tags, setTags] = useState([]);
+   const [tiers, setTiers] = useState([]);
    const [loading, setLoading] = useState(true);
    const [loadingError, setLoadingError] = useState(null);
    const [searchTerm, setSearchTerm] = useState('');
@@ -28,11 +31,89 @@ function Items() {
 
          const result = await response.data.result;
 
-         console.log('result', result);
-
          setItems(result.items);
 
       } catch (err) {
+
+         console.error('Error fetching items:', err);
+
+         setLoadingError(err.message);
+
+      } finally {
+
+         setLoading(false);
+
+      };
+
+   };
+
+   async function fetchTiers() {
+
+      try {
+
+         setLoading(true);
+
+         const response = await axios.get('/tiers');
+
+         const result = await response.data.result;
+
+         setTiers(result.tiers);
+
+      } catch (err) {
+
+         console.error('Error fetching tiers:', err);
+
+         setLoadingError(err.message);
+
+      } finally {
+
+         setLoading(false);
+
+      };
+
+   };
+
+   async function fetchTags() {
+
+      try {
+
+         setLoading(true);
+
+         const response = await axios.get('/tags');
+
+         const result = await response.data.result;
+
+         setTags(result.tags);
+
+      } catch (err) {
+
+         console.error('Error fetching tags:', err);
+
+         setLoadingError(err.message);
+
+      } finally {
+
+         setLoading(false);
+
+      };
+
+   };
+
+   async function fetchHeroes() {
+
+      try {
+
+         setLoading(true);
+
+         const response = await axios.get('/heroes');
+
+         const result = await response.data.result;
+
+         setHeroes(result.heroes);
+
+      } catch (err) {
+
+         console.error('Error fetching heroes:', err);
 
          setLoadingError(err.message);
 
@@ -66,7 +147,7 @@ function Items() {
 
                return { ...prevFilters, [name]: prevFilters[name].filter((v) => v !== value) };
 
-            }
+            };
 
          });
 
@@ -74,7 +155,7 @@ function Items() {
 
          setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
 
-      }
+      };
 
    };
 
@@ -88,9 +169,10 @@ function Items() {
             minTierSize: null,
             heroId: null,
          });
-      }
+      };
 
       setShowAdvancedFilters(!showAdvancedFilters);
+
    };
 
    const filteredItems = items.filter((item) => {
@@ -111,17 +193,43 @@ function Items() {
 
    useEffect(() => {
 
+      fetchHeroes();
+
       fetchItems();
+      
+      fetchTags();
+      
+      fetchTiers();
 
    }, []);
 
-   // console.log('items', items);
+   console.log('heroes', heroes);
+   
+   console.log('items', items);
+   
+   console.log('tiers', tiers);
+
+   console.log('tags', tags);
 
    return (
 
       <div className="container mx-auto my-5">
 
          <h1 className="text-2xl font-bold">Items Page</h1>
+
+         <div className="my-5">
+
+            <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
+
+            <button onClick={handleToggleFilters} className="mt-2 p-2 bg-blue-500 text-white rounded">
+
+               {showAdvancedFilters ? 'Hide Advanced Filters' : 'Show Advanced Filters'}
+
+            </button>
+
+            {showAdvancedFilters && <AdvancedFilters filters={filters} onFilterChange={handleFilterChange} heroes={heroes} tiers={tiers} tags={tags}  />}
+
+         </div>
 
          {
             loading ?
@@ -138,20 +246,6 @@ function Items() {
 
                : null
          }
-
-         <div className="my-5">
-
-            <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
-
-            <button onClick={handleToggleFilters} className="mt-2 p-2 bg-blue-500 text-white rounded">
-
-               {showAdvancedFilters ? 'Hide Advanced Filters' : 'Show Advanced Filters'}
-
-            </button>
-
-            {showAdvancedFilters && <AdvancedFilters filters={filters} onFilterChange={handleFilterChange} />}
-
-         </div>
 
          <div className="flex flex-col gap-5 my-5">
 

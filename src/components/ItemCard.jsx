@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function ItemCard({ item }) {
 
-   console.log('item', item);
-   console.log('item.item_tiers[0].effects', item.item_tiers[0].effects);
-
+   // console.log('item', item);
 
    function getItemImagePlaceholder() {
 
