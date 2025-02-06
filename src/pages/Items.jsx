@@ -20,6 +20,7 @@ function Items() {
       heroId: null,
    });
    const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+   const [isLoaded, setIsLoaded] = useState(false);
 
    async function fetchItems() {
 
@@ -193,13 +194,17 @@ function Items() {
 
    useEffect(() => {
 
-      fetchHeroes();
+      Promise.all([
 
-      fetchItems();
+         fetchHeroes(),
+         fetchItems(),
+         fetchTags(),
+         fetchTiers()
 
-      fetchTags();
-
-      fetchTiers();
+      ])
+         .then(() => setIsLoaded(true))
+         .catch((err) => console.error('Error loading data:', err));
+      //
 
    }, []);
 
@@ -247,23 +252,35 @@ function Items() {
                : null
          }
 
-         <div className="flex flex-col gap-5 my-5">
+         {
+            !isLoaded && !loadingError && !loading ?
 
-            {
-               filteredItems.length > 0 ?
-                  filteredItems.map((item) => (
+            <div className='text-center mx-auto my-5'>Printing Items...</div>
 
-                     <ItemCard key={item.id} item={item} />
+               : null
+         }
 
-                  )) :
-                  <div className="w-full border rounded overflow-hidden shadow-md bg-white">
+         {
+            isLoaded && !loadingError && !loading ?
+               <div className="flex flex-col gap-5 my-5">
 
-                     <p className="font-bold text-center text-xl my-2">No Item found.</p>
+                  {
+                     filteredItems.length > 0 ?
+                        filteredItems.map((item) => (
 
-                  </div>
-            }
+                           <ItemCard key={item.id} item={item} />
 
-         </div>
+                        )) :
+                        <div className="w-full border rounded overflow-hidden shadow-md bg-white">
+
+                           <p className="font-bold text-center text-xl my-2">No Item found.</p>
+
+                        </div>
+                  }
+
+               </div>
+               : null
+         }
 
       </div>
 
