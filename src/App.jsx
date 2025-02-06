@@ -34,7 +34,6 @@ function App() {
               <Link to="/shops">Shops</Link>
               <Link to="/contacts">Contacts</Link>
 
-
             </div>
 
           </div>
