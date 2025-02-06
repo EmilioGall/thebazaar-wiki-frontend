@@ -179,7 +179,7 @@ function Items() {
 
       const matchesSearchTerm = item.item_name.toLowerCase().includes(searchTerm.toLowerCase());
 
-      const matchesTagTypes = filters.tagTypes.length === 0 || item.tags.some((tag) => filters.tagTypes.includes(tag.tag_type));
+      const matchesTagTypes = filters.tagTypes.length === 0 || item.tags.some((tag) => filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name));
 
       const matchesMinTierId = !filters.minTierId || item.min_tier_id === parseInt(filters.minTierId);
 
@@ -196,20 +196,20 @@ function Items() {
       fetchHeroes();
 
       fetchItems();
-      
+
       fetchTags();
-      
+
       fetchTiers();
 
    }, []);
 
-   console.log('heroes', heroes);
-   
-   console.log('items', items);
-   
-   console.log('tiers', tiers);
+   // console.log('heroes', heroes);
 
-   console.log('tags', tags);
+   // console.log('items', items);
+
+   // console.log('tiers', tiers);
+
+   // console.log('tags', tags);
 
    return (
 
@@ -227,7 +227,7 @@ function Items() {
 
             </button>
 
-            {showAdvancedFilters && <AdvancedFilters filters={filters} onFilterChange={handleFilterChange} heroes={heroes} tiers={tiers} tags={tags}  />}
+            {showAdvancedFilters && <AdvancedFilters filters={filters} onFilterChange={handleFilterChange} heroes={heroes} tiers={tiers} tags={tags} />}
 
          </div>
 
@@ -250,11 +250,17 @@ function Items() {
          <div className="flex flex-col gap-5 my-5">
 
             {
-               filteredItems.map((item) => (
+               filteredItems.length > 0 ?
+                  filteredItems.map((item) => (
 
-                  <ItemCard key={item.id} item={item} />
+                     <ItemCard key={item.id} item={item} />
 
-               ))
+                  )) :
+                  <div className="w-full border rounded overflow-hidden shadow-md bg-white">
+
+                     <p className="font-bold text-center text-xl my-2">No Item found.</p>
+
+                  </div>
             }
 
          </div>
