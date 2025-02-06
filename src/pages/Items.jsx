@@ -78,6 +78,21 @@ function Items() {
 
    };
 
+   function handleToggleFilters() {
+
+      if (showAdvancedFilters) {
+         // Reset filters when hiding advanced filters
+         setFilters({
+            tagTypes: [],
+            minTierId: null,
+            minTierSize: null,
+            heroId: null,
+         });
+      }
+
+      setShowAdvancedFilters(!showAdvancedFilters);
+   };
+
    const filteredItems = items.filter((item) => {
 
       const matchesSearchTerm = item.item_name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -128,14 +143,14 @@ function Items() {
 
             <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
 
-            <button onClick={() => setShowAdvancedFilters(!showAdvancedFilters)} className="mt-2 p-2 bg-blue-500 text-white rounded">
+            <button onClick={handleToggleFilters} className="mt-2 p-2 bg-blue-500 text-white rounded">
 
                {showAdvancedFilters ? 'Hide Advanced Filters' : 'Show Advanced Filters'}
 
             </button>
 
             {showAdvancedFilters && <AdvancedFilters filters={filters} onFilterChange={handleFilterChange} />}
-            
+
          </div>
 
          <div className="flex flex-col gap-5 my-5">
