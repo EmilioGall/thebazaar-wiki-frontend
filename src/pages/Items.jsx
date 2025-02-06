@@ -15,9 +15,9 @@ function Items() {
    const [searchTerm, setSearchTerm] = useState('');
    const [filters, setFilters] = useState({
       tagTypes: [],
-      minTierId: null,
-      minTierSize: null,
-      heroId: null,
+      minTierNames: [],
+      minTierSizes: [],
+      heroNames: [],
    });
    const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
    const [isLoaded, setIsLoaded] = useState(false);
@@ -182,13 +182,13 @@ function Items() {
 
       const matchesTagTypes = filters.tagTypes.length === 0 || item.tags.some((tag) => filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name));
 
-      const matchesMinTierId = !filters.minTierId || item.min_tier_id === parseInt(filters.minTierId);
+      const matchesMinTierNames = filters.minTierNames.length === 0 || filters.minTierNames.includes(item.min_tier.tier_name);
 
-      const matchesMinTierSize = !filters.minTierSize || item.min_tier.tier_size === filters.minTierSize;
+      const matchesMinTierSizes = filters.minTierSizes.length === 0 || filters.minTierSizes.includes(item.min_tier.tier_size);
 
-      const matchesHeroId = !filters.heroId || item.hero_id === parseInt(filters.heroId);
+      const matchesHeroNames = filters.heroNames.length === 0 || filters.heroNames.includes(item.hero_name);
 
-      return matchesSearchTerm && matchesTagTypes && matchesMinTierId && matchesMinTierSize && matchesHeroId;
+      return matchesSearchTerm && matchesTagTypes && matchesMinTierNames && matchesMinTierSizes && matchesHeroNames;
 
    });
 
@@ -255,7 +255,7 @@ function Items() {
          {
             !isLoaded && !loadingError && !loading ?
 
-            <div className='text-center mx-auto my-5'>Printing Items...</div>
+               <div className='text-center mx-auto my-5'>Printing Items...</div>
 
                : null
          }
