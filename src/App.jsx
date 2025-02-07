@@ -15,7 +15,7 @@ function App() {
 
     <Router>
 
-      <header>
+      <header className='fixed start-0 top-0 w-full'>
 
         <nav className="bg-gray-800 text-white p-4">
 
@@ -42,7 +42,7 @@ function App() {
 
       </header>
 
-      <main>
+      <main className='mt-20'>
 
         <Routes>
 
