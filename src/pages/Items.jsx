@@ -17,10 +17,11 @@ function Items() {
       tagTypes: [],
       minTierNames: [],
       minTierSizes: [],
-      heroNames: [],
+      heroIds: [],
    });
    const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
    const [isLoaded, setIsLoaded] = useState(false);
+   const [filterMode, setFilterMode] = useState('AND');
 
    async function fetchItems() {
 
@@ -170,15 +171,21 @@ function Items() {
                tagTypes: [],
                minTierNames: [],
                minTierSizes: [],
-               heroNames: [],
+               heroIds: [],
             });
          }
 
          return !prevShowAdvancedFilters;
-         
+
       });
 
    };
+
+   function handleFilterModeChange(e) {
+
+      setFilterMode(e.target.checked ? 'OR' : 'AND');
+      
+   }
 
    const filteredItems = items.filter((item) => {
 
@@ -190,9 +197,23 @@ function Items() {
 
       const matchesMinTierSizes = filters.minTierSizes.length === 0 || filters.minTierSizes.includes(item.min_tier.tier_size);
 
-      const matchesHeroNames = filters.heroNames.length === 0 || filters.heroNames.includes(item.hero_name);
+      const matchesHeroIds = filters.heroIds.length === 0 || filters.heroIds.includes(item.hero_id);
 
-      return matchesSearchTerm && matchesTagTypes && matchesMinTierNames && matchesMinTierSizes && matchesHeroNames;
+      if (filterMode === 'AND') {
+
+         // All filters must match
+         return matchesSearchTerm && matchesHeroIds && matchesTagTypes && matchesMinTierNames && matchesMinTierSizes;
+
+      } else {
+
+         return matchesSearchTerm && (
+            matchesHeroIds ||
+            matchesTagTypes ||
+            matchesMinTierNames ||
+            matchesMinTierSizes
+         );
+
+      }
 
    });
 
@@ -214,7 +235,7 @@ function Items() {
 
    // console.log('heroes', heroes);
 
-   // console.log('items', items);
+   console.log('items', items);
 
    // console.log('tiers', tiers);
 
@@ -236,7 +257,17 @@ function Items() {
 
             </button>
 
-            {showAdvancedFilters && <AdvancedFilters filters={filters} onFilterChange={handleFilterChange} heroes={heroes} tiers={tiers} tags={tags} />}
+            {showAdvancedFilters && (
+               <AdvancedFilters
+                  filters={filters}
+                  onFilterChange={handleFilterChange}
+                  heroes={heroes}
+                  tiers={tiers}
+                  tags={tags}
+                  filterMode={filterMode}
+                  onFilterModeChange={handleFilterModeChange}
+               />
+            )}
 
          </div>
 

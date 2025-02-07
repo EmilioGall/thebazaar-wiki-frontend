@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, heroes }) {
+export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, heroes, filterMode, onFilterModeChange }) {
 
     // const groupedTags = tags.reduce((acc, tag) => {
 
@@ -10,12 +10,39 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
 
     // }, {});
 
-    // console.log('groupedTags', groupedTags);
+    console.log('filters', filters);
+    // console.log('onFilterChange', onFilterChange);
+    // console.log('tiers', tiers);
+    // console.log('tags', tags);
+    console.log('heroes', heroes);
+
 
     return (
         <div className="p-4 bg-gray-100 rounded">
+
             <h3 className="text-lg font-bold mb-2">Advanced Filters</h3>
 
+            {/* SearchMode Selection */}
+            <div className="mb-4">
+
+                <h4 className="font-semibold mb-2">Search Mode</h4>
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        checked={filterMode === 'OR'}
+                        onChange={onFilterModeChange}
+                    />
+
+                    {' '}OR mode (At least one filter must match)
+
+                </label>
+
+            </div>
+            {/* SearchMode Selection */}
+
+            {/* Hero Selection */}
             <div className="mb-4">
                 <h4 className="font-semibold mb-2">Heroes</h4>
 
@@ -25,9 +52,9 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                             <div key={hero.id} className="flex items-center mb-1">
                                 <input
                                     type="checkbox"
-                                    name="heroNames"
-                                    value={hero.hero_name}
-                                    checked={filters.heroNames.includes(hero.hero_name)}
+                                    name="heroIds"
+                                    value={hero.id}
+                                    checked={filters.heroIds.includes(hero.id)}
                                     onChange={onFilterChange}
                                     className="mr-2"
                                 />
@@ -37,7 +64,9 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                     }
                 </div>
             </div>
+            {/* Hero Selection */}
 
+            {/* Tier Selection */}
             <div className="mb-4">
                 <h4 className="font-semibold mb-2">Tiers</h4>
                 <div className="flex items-center gap-4">
@@ -58,7 +87,9 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                     }
                 </div>
             </div>
+            {/* Tier Selection */}
 
+            {/* Size Selection */}
             <div className="mb-4">
                 <h4 className="font-semibold mb-2">Sizes</h4>
 
@@ -80,7 +111,9 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                     }
                 </div>
             </div>
+            {/* Size Selection */}
 
+            {/* Tag Selection */}
             <div className="mb-4">
                 <h4 className="font-semibold mb-2">Tags</h4>
                 <div className="flex items-center flex-wrap gap-2">
@@ -101,6 +134,8 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                     }
                 </div>
             </div>
+            {/* Tag Selection */}
+
         </div>
     );
 }
