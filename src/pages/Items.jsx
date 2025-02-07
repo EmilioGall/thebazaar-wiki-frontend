@@ -193,7 +193,7 @@ function Items() {
 
       const matchesTagTypes = filters.tagTypes.length === 0 || item.tags.some((tag) => filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name));
 
-      const matchesMinTierNames = filters.minTierNames.length === 0 || filters.minTierNames.includes(item.min_tier.tier_name);
+      const matchesMinTierNames = filters.minTierNames.length === 0 || filters.minTierNames.includes(item.min_tier.tier_label);
 
       const matchesMinTierSizes = filters.minTierSizes.length === 0 || filters.minTierSizes.includes(item.min_tier.tier_size);
 

@@ -10,11 +10,13 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
 
     // }, {});
 
+    const printedTierLabels = [];
+
     console.log('filters', filters);
     // console.log('onFilterChange', onFilterChange);
-    // console.log('tiers', tiers);
+    console.log('tiers', tiers);
     // console.log('tags', tags);
-    console.log('heroes', heroes);
+    // console.log('heroes', heroes);
 
 
     return (
@@ -71,19 +73,30 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                 <h4 className="font-semibold mb-2">Tiers</h4>
                 <div className="flex items-center gap-4">
                     {
-                        tiers.map((tier) => (
-                            <div key={tier.id} className="flex items-center mb-1">
-                                <input
-                                    type="checkbox"
-                                    name="minTierNames"
-                                    value={tier.tier_name}
-                                    checked={filters.minTierNames.includes(tier.tier_name)}
-                                    onChange={onFilterChange}
-                                    className="mr-2"
-                                />
-                                <label>{tier.tier_name}</label>
-                            </div>
-                        ))
+                        tiers.map((tier) => {
+                            
+                            // Controllo se il nome del tier è già presente nell'array
+                            if (printedTierLabels.includes(tier.tier_label)) {
+                                // Se il nome del tier è già presente, salto la stampa della checkbox
+                                return null;
+                            } else {
+                                // Se il nome del tier non è presente, aggiungo il nome all'array e stampo la checkbox
+                                printedTierLabels.push(tier.tier_label);
+                                return (
+                                    <div key={tier.id} className="flex items-center mb-1">
+                                        <input
+                                            type="checkbox"
+                                            name="minTierNames"
+                                            value={tier.tier_label}
+                                            checked={filters.minTierNames.includes(tier.tier_label)}
+                                            onChange={onFilterChange}
+                                            className="mr-2"
+                                        />
+                                        <label>{String(tier.tier_label).charAt(0).toUpperCase() + String(tier.tier_label).slice(1)}</label>
+                                    </div>
+                                );
+                            }
+                        })
                     }
                 </div>
             </div>
