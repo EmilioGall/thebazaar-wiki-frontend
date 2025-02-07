@@ -185,6 +185,13 @@ function Items() {
 
       setFilterMode(e.target.checked ? 'OR' : 'AND');
 
+      setFilters({
+         tagTypes: [],
+         minTierNames: [],
+         minTierSizes: [],
+         heroIds: [],
+      });
+
    }
 
    const filteredItems = items.filter((item) => {
@@ -254,7 +261,7 @@ function Items() {
       });
 
       return matchesSearchTerm && matchesFilters;
-      
+
    });
 
    useEffect(() => {
