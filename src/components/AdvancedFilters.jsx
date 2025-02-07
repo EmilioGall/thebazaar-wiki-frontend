@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AdvancedFilters({ filters, onFilterChange, tiers, tags, heroes }) {
+export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, heroes }) {
 
     // const groupedTags = tags.reduce((acc, tag) => {
 

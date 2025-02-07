@@ -162,17 +162,21 @@ function Items() {
 
    function handleToggleFilters() {
 
-      if (showAdvancedFilters) {
-         // Reset filters when hiding advanced filters
-         setFilters({
-            tagTypes: [],
-            minTierId: null,
-            minTierSize: null,
-            heroId: null,
-         });
-      };
+      setShowAdvancedFilters((prevShowAdvancedFilters) => {
 
-      setShowAdvancedFilters(!showAdvancedFilters);
+         if (prevShowAdvancedFilters) {
+
+            setFilters({
+               tagTypes: [],
+               minTierNames: [],
+               minTierSizes: [],
+               heroNames: [],
+            });
+         }
+
+         return !prevShowAdvancedFilters;
+         
+      });
 
    };
 
@@ -255,7 +259,7 @@ function Items() {
          {
             !isLoaded && !loadingError && !loading ?
 
-               <div className='text-center mx-auto my-5'>Printing Items...</div>
+               <div className='text-center mx-auto my-5'>Still loading. Almost done...</div>
 
                : null
          }
