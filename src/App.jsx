@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './pages/Home';
 import Items from './pages/Items';
 import Skills from './pages/Skills';
@@ -25,14 +25,54 @@ function App() {
 
             <div className="flex space-x-4">
 
-              <Link to="/">Home</Link>
-              <Link to="/items">Items</Link>
-              <Link to="/skills">Skills</Link>
-              <Link to="/merchants">Merchants</Link>
-              <Link to="/monsters">Monsters</Link>
-              <Link to="/encounters">Encounters</Link>
-              <Link to="/shops">Shops</Link>
-              <Link to="/contacts">Contacts</Link>
+              <NavLink
+                className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+                to="/"
+              >
+                Home
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+                to="/items"
+              >
+                Items
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+                to="/skills"
+              >
+                Skills
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+                to="/merchants"
+              >
+                Merchants
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+                to="/monsters"
+              >
+                Monsters
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+                to="/encounters"
+              >
+                Encounters
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+                to="/shops"
+              >
+                Shops
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+                to="/contacts"
+              >
+                Contacts
+              </NavLink>
 
             </div>
 
