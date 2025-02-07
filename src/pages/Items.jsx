@@ -191,29 +191,70 @@ function Items() {
 
       const matchesSearchTerm = item.item_name.toLowerCase().includes(searchTerm.toLowerCase());
 
-      const matchesTagTypes = filters.tagTypes.length === 0 || item.tags.some((tag) => filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name));
+      const filterKeys = ['tagTypes', 'minTierNames', 'minTierSizes', 'heroIds'];
 
-      const matchesMinTierNames = filters.minTierNames.length === 0 || filters.minTierNames.includes(item.min_tier.tier_label);
+      const matchesFilters = filterKeys.every((filterKey) => {
 
-      const matchesMinTierSizes = filters.minTierSizes.length === 0 || filters.minTierSizes.includes(item.min_tier.tier_size);
+         if (filters[filterKey].length === 0) return true;
 
-      const matchesHeroIds = filters.heroIds.length === 0 || filters.heroIds.includes((item.hero_id).toString());
+         if (filterMode === 'AND') {
 
-      if (filterMode === 'AND') {
+            return filters[filterKey].every((filterValue) => {
 
-         return matchesSearchTerm && matchesHeroIds && matchesTagTypes && matchesMinTierNames && matchesMinTierSizes;
+               if (filterKey === 'tagTypes') {
 
-      } else {
+                  return item.tags.some((tag) => `${tag.tag_type}:${tag.tag_name}` === filterValue);
 
-         return matchesSearchTerm && (
-            matchesHeroIds ||
-            matchesTagTypes ||
-            matchesMinTierNames ||
-            matchesMinTierSizes
-         );
+               } else if (filterKey === 'minTierNames') {
 
-      }
+                  return item.min_tier.tier_label === filterValue;
 
+               } else if (filterKey === 'minTierSizes') {
+
+                  return item.min_tier.tier_size === filterValue;
+
+               } else if (filterKey === 'heroIds') {
+
+                  return item.hero_id.toString() === filterValue;
+
+               };
+
+               return false;
+
+            });
+
+         } else {
+
+            return filters[filterKey].some((filterValue) => {
+
+               if (filterKey === 'tagTypes') {
+
+                  return item.tags.some((tag) => `${tag.tag_type}:${tag.tag_name}` === filterValue);
+
+               } else if (filterKey === 'minTierNames') {
+
+                  return item.min_tier.tier_label === filterValue;
+
+               } else if (filterKey === 'minTierSizes') {
+
+                  return item.min_tier.tier_size === filterValue;
+
+               } else if (filterKey === 'heroIds') {
+
+                  return item.hero_id.toString() === filterValue;
+
+               };
+
+               return false;
+
+            });
+
+         }
+
+      });
+
+      return matchesSearchTerm && matchesFilters;
+      
    });
 
    useEffect(() => {
@@ -234,7 +275,7 @@ function Items() {
 
    // console.log('heroes', heroes);
 
-   // console.log('items', items);
+   console.log('items', items);
 
    // console.log('tiers', tiers);
 

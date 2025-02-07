@@ -186,10 +186,12 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                                         ))
                                     }
                                 </div>
+                                
                             </div>
                         ))
                     }
                 </div>
+
             </div>
             {/* Tag Selection */}
 
