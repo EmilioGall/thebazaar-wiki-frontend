@@ -82,7 +82,7 @@ function App() {
 
       </header>
 
-      <main className='mt-20'>
+      <main className='mt-20 container mx-auto px-5 md:px-10 lg:px-20 xl:px-40'>
 
         <Routes>
 
