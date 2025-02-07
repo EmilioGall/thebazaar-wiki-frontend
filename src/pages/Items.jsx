@@ -184,7 +184,7 @@ function Items() {
    function handleFilterModeChange(e) {
 
       setFilterMode(e.target.checked ? 'OR' : 'AND');
-      
+
    }
 
    const filteredItems = items.filter((item) => {
@@ -197,11 +197,10 @@ function Items() {
 
       const matchesMinTierSizes = filters.minTierSizes.length === 0 || filters.minTierSizes.includes(item.min_tier.tier_size);
 
-      const matchesHeroIds = filters.heroIds.length === 0 || filters.heroIds.includes(item.hero_id);
+      const matchesHeroIds = filters.heroIds.length === 0 || filters.heroIds.includes((item.hero_id).toString());
 
       if (filterMode === 'AND') {
 
-         // All filters must match
          return matchesSearchTerm && matchesHeroIds && matchesTagTypes && matchesMinTierNames && matchesMinTierSizes;
 
       } else {

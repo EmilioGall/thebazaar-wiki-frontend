@@ -54,7 +54,7 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                                     type="checkbox"
                                     name="heroIds"
                                     value={hero.id}
-                                    checked={filters.heroIds.includes(hero.id)}
+                                    checked={filters.heroIds.includes((hero.id).toString())}
                                     onChange={onFilterChange}
                                     className="mr-2"
                                 />
