@@ -234,7 +234,7 @@ function Items() {
 
    // console.log('heroes', heroes);
 
-   console.log('items', items);
+   // console.log('items', items);
 
    // console.log('tiers', tiers);
 
@@ -250,9 +250,9 @@ function Items() {
 
             <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
 
-            <button onClick={handleToggleFilters} className="mt-2 p-2 bg-blue-500 text-white rounded">
+            <button onClick={handleToggleFilters} className={`border mt-2 p-2 ${showAdvancedFilters ? 'border-gray-100 bg-gray-100 text-gray-800 rounded-t' : 'rounded'}`}>
 
-               {showAdvancedFilters ? 'Hide Advanced Filters' : 'Show Advanced Filters'}
+               Advanced Filters
 
             </button>
 

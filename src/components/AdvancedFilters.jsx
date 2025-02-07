@@ -1,35 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, heroes, filterMode, onFilterModeChange }) {
 
-    // const groupedTags = tags.reduce((acc, tag) => {
-
-    //     (acc[tag.tag_type] = acc[tag.tag_type] || []).push(tag);
-
-    //     return acc;
-
-    // }, {});
-
     const printedTierLabels = [];
+    const [groupedTags, setGroupedTags] = useState({});
+
+    useEffect(() => {
+
+        const groupedTags = {};
+
+        tags.forEach(tag => {
+
+            if (!groupedTags[tag.tag_type]) {
+
+                groupedTags[tag.tag_type] = [];
+
+            };
+
+            groupedTags[tag.tag_type].push(tag);
+
+        });
+
+        setGroupedTags(groupedTags);
+
+    }, [tags]);
+
 
     console.log('filters', filters);
     // console.log('onFilterChange', onFilterChange);
-    console.log('tiers', tiers);
-    // console.log('tags', tags);
+    // console.log('tiers', tiers);
+    console.log('tags', tags);
     // console.log('heroes', heroes);
 
+    console.log('groupedTags', groupedTags);
 
     return (
-        <div className="p-4 bg-gray-100 rounded">
-
-            <h3 className="text-lg font-bold mb-2">Advanced Filters</h3>
+        <div className="bg-gray-100 rounded rounded-tl-0 p-2 space-y-2">
 
             {/* SearchMode Selection */}
-            <div className="mb-4">
+            <div className="rounded flex items-center bg-gray-200 p-2">
 
-                <h4 className="font-semibold mb-2">Search Mode</h4>
+                <h4 className="font-semibold basis-2/12">Search Mode</h4>
 
-                <label>
+                <div className='flex items-center space-x-1 basis-10/12'>
 
                     <input
                         type="checkbox"
@@ -37,30 +50,34 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
                         onChange={onFilterModeChange}
                     />
 
-                    {' '}OR mode (At least one filter must match)
+                    <label className='text-sm'>
 
-                </label>
+                        {' '}OR mode (At least one filter must match)
+
+                    </label>
+
+                </div>
 
             </div>
             {/* SearchMode Selection */}
 
             {/* Hero Selection */}
-            <div className="mb-4">
-                <h4 className="font-semibold mb-2">Heroes</h4>
+            <div className="rounded flex items-center bg-gray-200 p-2">
 
-                <div className="flex items-center gap-4">
+                <h4 className="font-semibold basis-2/12">Heroes</h4>
+
+                <div className="flex items-center space-x-2 basis-10/12">
                     {
                         heroes.map((hero) => (
-                            <div key={hero.id} className="flex items-center mb-1">
+                            <div key={hero.id} className="flex space-x-1">
                                 <input
                                     type="checkbox"
                                     name="heroIds"
                                     value={hero.id}
                                     checked={filters.heroIds.includes((hero.id).toString())}
                                     onChange={onFilterChange}
-                                    className="mr-2"
                                 />
-                                <label>{hero.hero_name}</label>
+                                <label className='text-sm'>{hero.hero_name}</label>
                             </div>
                         ))
                     }
@@ -69,30 +86,37 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
             {/* Hero Selection */}
 
             {/* Tier Selection */}
-            <div className="mb-4">
-                <h4 className="font-semibold mb-2">Tiers</h4>
-                <div className="flex items-center gap-4">
+            <div className="rounded flex items-center bg-gray-200 p-2">
+
+                <h4 className="font-semibold basis-2/12">Tiers</h4>
+
+                <div className="flex items-center space-x-2 basis-10/12">
                     {
                         tiers.map((tier) => {
-                            
-                            // Controllo se il nome del tier è già presente nell'array
+
                             if (printedTierLabels.includes(tier.tier_label)) {
-                                // Se il nome del tier è già presente, salto la stampa della checkbox
+
                                 return null;
+
                             } else {
-                                // Se il nome del tier non è presente, aggiungo il nome all'array e stampo la checkbox
+
                                 printedTierLabels.push(tier.tier_label);
+
                                 return (
-                                    <div key={tier.id} className="flex items-center mb-1">
+                                    <div key={tier.id} className="flex space-x-1">
+
                                         <input
                                             type="checkbox"
                                             name="minTierNames"
                                             value={tier.tier_label}
                                             checked={filters.minTierNames.includes(tier.tier_label)}
                                             onChange={onFilterChange}
-                                            className="mr-2"
                                         />
-                                        <label>{String(tier.tier_label).charAt(0).toUpperCase() + String(tier.tier_label).slice(1)}</label>
+
+                                        <label className='text-sm'>
+                                            {String(tier.tier_label).charAt(0).toUpperCase() + String(tier.tier_label).slice(1)}
+                                        </label>
+
                                     </div>
                                 );
                             }
@@ -103,45 +127,65 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
             {/* Tier Selection */}
 
             {/* Size Selection */}
-            <div className="mb-4">
-                <h4 className="font-semibold mb-2">Sizes</h4>
+            <div className="rounded flex items-center bg-gray-200 p-2">
 
-                <div className="flex items-center gap-4">
+                <h4 className="font-semibold basis-2/12">Sizes</h4>
+
+                <div className="flex items-center space-x-2 basis-10/12">
                     {
                         ['small', 'medium', 'large'].map((size) => (
-                            <div key={size} className="flex items-center mb-1">
+                            <div key={size} className="flex space-x-1">
+
                                 <input
                                     type="checkbox"
                                     name="minTierSizes"
                                     value={size}
                                     checked={filters.minTierSizes.includes(size)}
                                     onChange={onFilterChange}
-                                    className="mr-2"
                                 />
-                                <label>{size.charAt(0).toUpperCase() + size.slice(1)}</label>
+
+                                <label className='text-sm'>{size.charAt(0).toUpperCase() + size.slice(1)}</label>
+
                             </div>
                         ))
                     }
                 </div>
+
             </div>
             {/* Size Selection */}
 
             {/* Tag Selection */}
-            <div className="mb-4">
-                <h4 className="font-semibold mb-2">Tags</h4>
-                <div className="flex items-center flex-wrap gap-2">
+            <div className="rounded flex bg-gray-200 p-2">
+
+                <h4 className="font-semibold srink basis-2/12">Tags</h4>
+
+                <div className="flex flex-col space-y-2 basis-10/12">
                     {
-                        tags.map((tag) => (
-                            <div key={tag.id} className="flex items-center mb-1">
-                                <input
-                                    type="checkbox"
-                                    name="tagTypes"
-                                    value={tag.tag_type + ':' + tag.tag_name}
-                                    checked={filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name)}
-                                    onChange={onFilterChange}
-                                    className="mr-2"
-                                />
-                                <label>{tag.tag_name}</label>
+                        Object.entries(groupedTags).map(([type, tags]) => (
+                            <div key={type} className="flex space-x-2 rounded bg-gray-300 px-2">
+
+                                <h5 className="italic basis-2/12">{String(type).charAt(0).toUpperCase() + String(type).slice(1) + ':'}</h5>
+
+                                <div className="flex items-center flex-wrap gap-2 basis-10/12">
+                                    {
+                                        tags.map((tag) => (
+                                            <div key={tag.id} className="flex items-center">
+
+                                                <input
+                                                    type="checkbox"
+                                                    name="tagTypes"
+                                                    value={tag.tag_type + ':' + tag.tag_name}
+                                                    checked={filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name)}
+                                                    onChange={onFilterChange}
+                                                    className="mr-2"
+                                                />
+
+                                                <label className='text-sm'>{tag.tag_name}</label>
+
+                                            </div>
+                                        ))
+                                    }
+                                </div>
                             </div>
                         ))
                     }
