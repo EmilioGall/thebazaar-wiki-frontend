@@ -67,41 +67,48 @@ export default function ItemCard({ item }) {
 
    };
 
-   // Funzione per suddividere la stringa e assegnare i colori
    function coloredEffectString(effectString, minTier) {
 
-      // Trova l'indice della parentesi aperta e chiusa
       const openParenIndex = effectString.indexOf('(');
       const closeParenIndex = effectString.indexOf(')');
 
       if (openParenIndex === -1 || closeParenIndex === -1) {
-         // Se non ci sono parentesi nella stringa, restituire la stringa originale
-         return <span>{effectString}</span>;
-      }
 
-      // Suddividere la stringa prima, all'interno e dopo le parentesi
-      const beforeParentheses = effectString.slice(0, openParenIndex);
+         return <p className="text-gray-700 text-base py-1 px-2">{effectString}</p>;
+
+      };
+
+      const beforeParentheses = effectString.slice(0, openParenIndex + 2);
       const insideParentheses = effectString.slice(openParenIndex + 1, closeParenIndex).split('>');
-      const afterParentheses = effectString.slice(closeParenIndex + 1);
+      const afterParentheses = effectString.slice(closeParenIndex - 2 + 1);
 
-      // Colori da assegnare ai valori all'interno delle parentesi
       const colors = ['text-red-800', 'text-blue-300', 'text-yellow-500', 'text-sky-500', 'text-pink-900'];
       const startIndex = tierColors[minTier] || 0;
 
       return (
+
          <p className="text-gray-700 text-base py-1 px-2">
+
             {beforeParentheses}
-            (
-            {insideParentheses.map((value, index) => (
-               <span key={index}>
-                  <span className={`font-bold ${colors[(startIndex + index) % colors.length]}`}>
-                     {value.trim()}
+            {
+               insideParentheses.map((value, index) => (
+
+                  <span key={index}>
+
+                     <span className={`font-bold ${colors[(startIndex + index) % colors.length]}`}>
+
+                        {value.trim()}
+
+                     </span>
+
+                     {index < insideParentheses.length - 1 && <span className="text-black"> {' > '} </span>}
+
                   </span>
-                  {index < insideParentheses.length - 1 && <span className="text-black"> {' > '} </span>}
-               </span>
-            ))}
-            )
+
+               ))
+            }
             {afterParentheses}
+
          </p>
       );
    };
@@ -119,13 +126,13 @@ export default function ItemCard({ item }) {
 
                   {
                      item.tags ?
-                        <div className='flex gap-2'>
+                        <div className='flex gap-2 py-2'>
                            {
                               item.tags.map((tag, index) => {
 
                                  return (
 
-                                    <p key={index} className="text-gray-700 text-base border p-1">
+                                    <p key={index} className="text-gray-700 text-base border rounded-lg px-2">
 
                                        {tag.tag_name}
 
@@ -166,9 +173,9 @@ export default function ItemCard({ item }) {
 
                         <div>
 
-                           <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 me-2">
+                           <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 me-2">
 
-                              {item.item_cooldown}.00 s
+                              {item.item_cooldown}.0 s
 
                            </span>
 
@@ -182,7 +189,7 @@ export default function ItemCard({ item }) {
 
                         <div>
 
-                           <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 me-2">
+                           <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 me-2">
 
                               {item.item_max_ammo}
 
@@ -198,7 +205,7 @@ export default function ItemCard({ item }) {
 
                         <div>
 
-                           <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 me-2">
+                           <span className="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 me-2">
 
                               {item.item_multicast}x
 
@@ -227,7 +234,7 @@ export default function ItemCard({ item }) {
                item.enchantments ?
 
                   item.enchantments.map((enchantment) => (
-                     <div key={enchantment.id} className="inline-block bg-gray-200 rounded-lg px-3 py-1 text-gray-700">
+                     <div key={enchantment.id} className="inline-block bg-gray-200 rounded-lg px-2 py-1 text-gray-700">
 
                         <h4 className='text-sm font-bold'>{enchantment.enchantment_name}</h4>
 
