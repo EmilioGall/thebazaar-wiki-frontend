@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function ItemCard({ item }) {
 
-   // console.log('item', item);
+   console.log('item', item);
 
    function getItemImagePlaceholder() {
 
@@ -96,11 +96,17 @@ export default function ItemCard({ item }) {
                      item.item_tiers ?
                         item.item_tiers[0].effects.map((effect, index) => {
 
+                           const primaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.primary_value).filter(value => value !== null);
+                           const secondaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.secondary_value).filter(value => value !== null);
+
+
                            return (
 
                               <p key={index} className="text-gray-700 text-base">
 
-                                 {effect.effect_description}
+                                 {
+                                    replacePlaceholders(effect.effect_description, primaryValues, secondaryValues)
+                                 }
 
                               </p>
 

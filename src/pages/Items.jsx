@@ -282,7 +282,7 @@ function Items() {
 
    // console.log('heroes', heroes);
 
-   console.log('items', items);
+   // console.log('items', items);
 
    // console.log('tiers', tiers);
 
@@ -292,9 +292,9 @@ function Items() {
 
       <div className="container mx-auto my-5">
 
-         <h1 className="text-2xl font-bold">Items Page</h1>
+         <h1 className="text-2xl font-bold">Items in the Bazaar</h1>
 
-         <div className="my-5">
+         <div className="my-2">
 
             <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
 
