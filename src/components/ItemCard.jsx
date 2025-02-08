@@ -4,6 +4,14 @@ export default function ItemCard({ item }) {
 
    console.log('item', item);
 
+   const tierColors = {
+      bronze: 0,
+      silver: 1,
+      gold: 2,
+      diamond: 3,
+      legendary: 4,
+   };
+
    function getItemImagePlaceholder() {
 
       let itemImagePlaceholder = '';
@@ -20,13 +28,13 @@ export default function ItemCard({ item }) {
 
          case 'medium':
 
-            itemImagePlaceholder = 'medium-item-placeholder_800x800.webp.webp.webp';
+            itemImagePlaceholder = 'medium-item-placeholder_800x800.webp';
 
             break;
 
          case 'large':
 
-            itemImagePlaceholder = 'large-item-placeholder_1200x800.webp.webp';
+            itemImagePlaceholder = 'large-item-placeholder_1200x800.webp';
 
             break;
 
@@ -57,6 +65,45 @@ export default function ItemCard({ item }) {
 
       return description;
 
+   };
+
+   // Funzione per suddividere la stringa e assegnare i colori
+   function coloredEffectString(effectString, minTier) {
+
+      // Trova l'indice della parentesi aperta e chiusa
+      const openParenIndex = effectString.indexOf('(');
+      const closeParenIndex = effectString.indexOf(')');
+
+      if (openParenIndex === -1 || closeParenIndex === -1) {
+         // Se non ci sono parentesi nella stringa, restituire la stringa originale
+         return <span>{effectString}</span>;
+      }
+
+      // Suddividere la stringa prima, all'interno e dopo le parentesi
+      const beforeParentheses = effectString.slice(0, openParenIndex);
+      const insideParentheses = effectString.slice(openParenIndex + 1, closeParenIndex).split('>');
+      const afterParentheses = effectString.slice(closeParenIndex + 1);
+
+      // Colori da assegnare ai valori all'interno delle parentesi
+      const colors = ['text-red-800', 'text-blue-300', 'text-yellow-500', 'text-sky-500', 'text-pink-900'];
+      const startIndex = tierColors[minTier] || 0;
+
+      return (
+         <p className="text-gray-700 text-base py-1 px-2">
+            {beforeParentheses}
+            (
+            {insideParentheses.map((value, index) => (
+               <span key={index}>
+                  <span className={`font-bold ${colors[(startIndex + index) % colors.length]}`}>
+                     {value.trim()}
+                  </span>
+                  {index < insideParentheses.length - 1 && <span className="text-black"> {' > '} </span>}
+               </span>
+            ))}
+            )
+            {afterParentheses}
+         </p>
+      );
    };
 
    return (
@@ -102,13 +149,7 @@ export default function ItemCard({ item }) {
 
                            return (
 
-                              <p key={index} className="text-gray-700 text-base">
-
-                                 {
-                                    replacePlaceholders(effect.effect_description, primaryValues, secondaryValues)
-                                 }
-
-                              </p>
+                              coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), item.min_tier.tier_label)
 
                            );
 

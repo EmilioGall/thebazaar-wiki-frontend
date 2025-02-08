@@ -21,7 +21,7 @@ function App() {
 
           <div className="container mx-auto flex justify-between items-center">
 
-            <div className="text-lg font-bold">The Bazaar - Wiki</div>
+            <div className="text-lg font-bold">The Bazaar Assistant</div>
 
             <div className="flex space-x-4">
 
