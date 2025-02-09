@@ -93,7 +93,7 @@ export default function ItemCard({ item }) {
             {
                insideParentheses.map((value, index) => (
 
-                  <span key={index}>
+                  <span key={`${minTier}-${index}`}>
 
                      <span className={`font-bold ${colors[(startIndex + index) % colors.length]}`}>
 
@@ -114,7 +114,7 @@ export default function ItemCard({ item }) {
    };
 
    return (
-      <div className="w-full border rounded overflow-hidden shadow-md bg-white">
+      <div key={item.id} className="w-full border rounded shadow-md bg-white">
 
          <div className='flex justify-between gap-4'>
 
@@ -128,11 +128,11 @@ export default function ItemCard({ item }) {
                      item.tags ?
                         <div className='flex gap-2 py-2'>
                            {
-                              item.tags.map((tag, index) => {
+                              item.tags.map((tag) => {
 
                                  return (
 
-                                    <p key={index} className="text-gray-700 text-base border rounded-lg px-2">
+                                    <p key={`${tag.tag_type}-${tag.tag_name}`} className="text-gray-700 text-base border rounded-lg px-2">
 
                                        {tag.tag_name}
 
