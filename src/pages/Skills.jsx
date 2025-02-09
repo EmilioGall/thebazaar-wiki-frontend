@@ -186,7 +186,6 @@ function Skills() {
       setFilters({
          tagTypes: [],
          minTierNames: [],
-         minTierSizes: [],
          heroIds: [],
       });
 
@@ -198,65 +197,42 @@ function Skills() {
 
       const filterKeys = ['tagTypes', 'minTierNames', 'heroIds'];
 
-      const matchesFilters = filterKeys.every((filterKey) => {
-
-         if (filters[filterKey].length === 0) return true;
-
-         if (filterMode === 'AND') {
+      const matchesFilters = filterMode === 'AND'
+         ? filterKeys.every((filterKey) => {
+            if (filters[filterKey].length === 0) return true;
 
             return filters[filterKey].every((filterValue) => {
 
                if (filterKey === 'tagTypes') {
-
                   return skill.tags.some((tag) => `${tag.tag_type}:${tag.tag_name}` === filterValue);
-
                } else if (filterKey === 'minTierNames') {
-
                   return skill.min_tier.tier_label === filterValue;
-
-               } else if (filterKey === 'minTierSizes') {
-
-                  return skill.min_tier.tier_size === filterValue;
-
                } else if (filterKey === 'heroIds') {
-
-                  return skill.hero_id.toString() === filterValue;
-
+                  return skill.heroes.some((hero) => hero.id.toString() === filterValue);
                };
 
                return false;
 
             });
+         })
+         : filterKeys.some((filterKey) => {
 
-         } else if (filterMode === 'OR') {
+            if (filters[filterKey].length === 0) return false;
 
             return filters[filterKey].some((filterValue) => {
 
                if (filterKey === 'tagTypes') {
-
                   return skill.tags.some((tag) => `${tag.tag_type}:${tag.tag_name}` === filterValue);
-
                } else if (filterKey === 'minTierNames') {
-
                   return skill.min_tier.tier_label === filterValue;
-
-               } else if (filterKey === 'minTierSizes') {
-
-                  return skill.min_tier.tier_size === filterValue;
-
                } else if (filterKey === 'heroIds') {
-
-                  return skill.hero_id.toString() === filterValue;
-
+                  return skill.heroes.some((hero) => hero.id.toString() === filterValue);
                };
 
                return false;
 
             });
-
-         }
-
-      });
+         });
 
       return matchesSearchTerm && matchesFilters;
 
