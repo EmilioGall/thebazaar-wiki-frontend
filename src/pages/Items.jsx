@@ -230,7 +230,7 @@ function Items() {
 
             });
 
-         } else {
+         } else if (filterMode === 'OR') {
 
             return filters[filterKey].some((filterValue) => {
 
@@ -350,10 +350,10 @@ function Items() {
                      filteredItems.length > 0 ?
                         filteredItems.map((item) => (
 
-                           <ItemCard key={item.id} item={item} />
+                           <ItemCard key={`item-${item.id}`} item={item} />
 
                         )) :
-                        <div className="w-full border rounded overflow-hidden shadow-md bg-white">
+                        <div className="w-full border rounded shadow-md bg-white">
 
                            <p className="font-bold text-center text-xl my-2">No Item found.</p>
 
