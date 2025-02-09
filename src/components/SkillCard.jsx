@@ -58,7 +58,7 @@ export default function SkillCard({ skill }) {
             {
                insideParentheses.map((value, index) => (
 
-                  <span key={`${minTier}-${index}`}>
+                  <span key={`${skill.id}-${minTier}-${index}`}>
 
                      <span className={`font-bold ${colors[(startIndex + index) % colors.length]}`}>
 
@@ -97,7 +97,7 @@ export default function SkillCard({ skill }) {
 
                                  return (
 
-                                    <p key={`${tag.tag_type}-${tag.tag_name}`} className="text-gray-700 text-base border rounded-lg px-2">
+                                    <p key={`${skill.id}-${tag.tag_type}-${tag.tag_name}`} className="text-gray-700 text-base border rounded-lg px-2">
 
                                        {tag.tag_name}
 
@@ -118,10 +118,13 @@ export default function SkillCard({ skill }) {
                            const primaryValues = skill.skill_tiers.map(tier => tier.effects[index].pivot.primary_value).filter(value => value !== null);
                            const secondaryValues = skill.skill_tiers.map(tier => tier.effects[index].pivot.secondary_value).filter(value => value !== null);
 
-
                            return (
 
-                              coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), skill.min_tier.tier_label)
+                              <div key={`${skill.id}-effect-${index}`}>
+                                 {
+                                    coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), skill.min_tier.tier_label)
+                                 }
+                              </div>
 
                            );
 
