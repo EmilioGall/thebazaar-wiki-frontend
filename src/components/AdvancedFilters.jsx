@@ -28,7 +28,7 @@ export default function AdvancedFilters({ filters, onFilterChange, tiers, tags, 
     console.log('filters', filters);
     // console.log('onFilterChange', onFilterChange);
     // console.log('tiers', tiers);
-    console.log('tags', tags);
+    // console.log('tags', tags);
     // console.log('heroes', heroes);
 
     console.log('groupedTags', groupedTags);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function ItemCard({ item }) {
 
-   console.log('item', item);
+   // console.log('item', item);
 
    const tierColors = {
       bronze: 0,
@@ -55,11 +55,15 @@ export default function ItemCard({ item }) {
 
          description = description.replace('{ n1 }', `( ${primaryValues.join(' > ')} )`);
 
+         description = description.replace('{ Tier1 }', `( ${primaryValues.join(' > ')} )`);
+
       }
 
       if (secondaryValues.length > 0) {
 
          description = description.replace('{ n2 }', `( ${secondaryValues.join(' > ')} )`);
+
+         description = description.replace('{ Tier2 }', `( ${primaryValues.join(' > ')} )`);
 
       }
 
