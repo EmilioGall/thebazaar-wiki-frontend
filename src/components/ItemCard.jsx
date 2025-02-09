@@ -126,7 +126,23 @@ export default function ItemCard({ item }) {
 
                <div className="px-4 py-2">
 
-                  <div className="font-bold text-xl mb-2">{item.item_name}</div>
+                  <div className='flex space-x-2 mb-2'>
+
+                     <h2 className="font-bold text-xl">{item.item_name}</h2>
+
+                     <span className="text-gray-700 text-base border rounded-lg px-2">
+
+                        {String(item.min_tier.tier_label).charAt(0).toUpperCase() + String(item.min_tier.tier_label).slice(1)}
+
+                     </span>
+
+                     <span className="text-gray-700 text-base border rounded-lg px-2">
+
+                        {item.hero.hero_name}
+
+                     </span>
+
+                  </div>
 
                   {
                      item.tags ?
@@ -154,21 +170,21 @@ export default function ItemCard({ item }) {
                      item.item_tiers ?
                         item.item_tiers[0].effects.map((effect, index) => {
 
-                        const primaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.primary_value).filter(value => value !== null);
-                        const secondaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.secondary_value).filter(value => value !== null);
+                           const primaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.primary_value).filter(value => value !== null);
+                           const secondaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.secondary_value).filter(value => value !== null);
 
 
-                        return (
+                           return (
 
-                           <div key={`${item.id}-effect-${index}`}>
-                              {
-                                 coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), item.min_tier.tier_label)
-                              }
-                           </div>
+                              <div key={`${item.id}-effect-${index}`}>
+                                 {
+                                    coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), item.min_tier.tier_label)
+                                 }
+                              </div>
 
-                        );
+                           );
 
-                     })
+                        })
                         : null
                   }
 
@@ -245,12 +261,12 @@ export default function ItemCard({ item }) {
 
                      <div key={`${enchantment.id}-${index}`} className="inline-block bg-gray-200 rounded-lg px-2 py-1 text-gray-700">
 
-                     <h4 className='text-sm font-bold'>{enchantment.enchantment_name}</h4>
+                        <h4 className='text-sm font-bold'>{enchantment.enchantment_name}</h4>
 
-                     <p className='text-xs '>{enchantment.enchantment_description}</p>
+                        <p className='text-xs '>{enchantment.enchantment_description}</p>
 
-                  </div>
-               ))
+                     </div>
+                  ))
 
                   : null
             }
