@@ -132,7 +132,7 @@ export default function ItemCard({ item }) {
 
                      <span className="text-gray-700 text-base border rounded-lg px-2">
 
-                        {String(item.min_tier.tier_label).charAt(0).toUpperCase() + String(item.min_tier.tier_label).slice(1)}
+                        {`${String(item.min_tier.tier_label).charAt(0).toUpperCase() + String(item.min_tier.tier_label).slice(1)}+`}
 
                      </span>
 

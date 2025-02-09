@@ -91,7 +91,28 @@ export default function SkillCard({ skill }) {
 
                <div key={skill.id} className="px-4 py-2">
 
-                  <div className="font-bold text-xl mb-2">{skill.skill_name}</div>
+                  <div className='flex space-x-2 mb-2'>
+
+                     <h2 className="font-bold text-xl">{skill.skill_name}</h2>
+
+                     <span className="text-gray-700 text-base border rounded-lg px-2">
+
+                        {`${String(skill.min_tier.tier_label).charAt(0).toUpperCase() + String(skill.min_tier.tier_label).slice(1)}+`}
+
+                     </span>
+
+                     {
+                        skill.heroes.map((hero, heroIndex) => (
+                           <span key={heroIndex} className="text-gray-700 text-base border rounded-lg px-2">
+
+                              {hero.hero_name}
+
+                           </span>
+                        ))
+                     }
+
+
+                  </div>
 
                   {
                      skill.tags ?
