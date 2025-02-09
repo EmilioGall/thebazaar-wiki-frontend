@@ -200,65 +200,46 @@ function Items() {
 
       const filterKeys = ['tagTypes', 'minTierNames', 'minTierSizes', 'heroIds'];
 
-      const matchesFilters = filterKeys.every((filterKey) => {
-
-         if (filters[filterKey].length === 0) return true;
-
-         if (filterMode === 'AND') {
+      const matchesFilters = filterMode === 'AND'
+         ? filterKeys.every((filterKey) => {
+            if (filters[filterKey].length === 0) return true;
 
             return filters[filterKey].every((filterValue) => {
 
                if (filterKey === 'tagTypes') {
-
                   return item.tags.some((tag) => `${tag.tag_type}:${tag.tag_name}` === filterValue);
-
                } else if (filterKey === 'minTierNames') {
-
                   return item.min_tier.tier_label === filterValue;
-
                } else if (filterKey === 'minTierSizes') {
-
                   return item.min_tier.tier_size === filterValue;
-
                } else if (filterKey === 'heroIds') {
-
                   return item.hero_id.toString() === filterValue;
-
                };
 
                return false;
 
             });
-
-         } else if (filterMode === 'OR') {
+         })
+         : filterKeys.some((filterKey) => {
+            
+            if (filters[filterKey].length === 0) return false;
 
             return filters[filterKey].some((filterValue) => {
 
                if (filterKey === 'tagTypes') {
-
                   return item.tags.some((tag) => `${tag.tag_type}:${tag.tag_name}` === filterValue);
-
                } else if (filterKey === 'minTierNames') {
-
                   return item.min_tier.tier_label === filterValue;
-
                } else if (filterKey === 'minTierSizes') {
-
                   return item.min_tier.tier_size === filterValue;
-
                } else if (filterKey === 'heroIds') {
-
                   return item.hero_id.toString() === filterValue;
-
                };
 
                return false;
-
+               
             });
-
-         }
-
-      });
+         });
 
       return matchesSearchTerm && matchesFilters;
 
