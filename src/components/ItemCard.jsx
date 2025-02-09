@@ -93,7 +93,7 @@ export default function ItemCard({ item }) {
             {
                insideParentheses.map((value, index) => (
 
-                  <span key={`${minTier}-${index}`}>
+                  <span key={`${item.id}-${minTier}-${index}`}>
 
                      <span className={`font-bold ${colors[(startIndex + index) % colors.length]}`}>
 
@@ -132,7 +132,7 @@ export default function ItemCard({ item }) {
 
                                  return (
 
-                                    <p key={`${tag.tag_type}-${tag.tag_name}`} className="text-gray-700 text-base border rounded-lg px-2">
+                                    <p key={`${item.id}-${tag.tag_type}-${tag.tag_name}`} className="text-gray-700 text-base border rounded-lg px-2">
 
                                        {tag.tag_name}
 
@@ -150,17 +150,21 @@ export default function ItemCard({ item }) {
                      item.item_tiers ?
                         item.item_tiers[0].effects.map((effect, index) => {
 
-                           const primaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.primary_value).filter(value => value !== null);
-                           const secondaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.secondary_value).filter(value => value !== null);
+                        const primaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.primary_value).filter(value => value !== null);
+                        const secondaryValues = item.item_tiers.map(tier => tier.effects[index].pivot.secondary_value).filter(value => value !== null);
 
 
-                           return (
+                        return (
 
-                              coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), item.min_tier.tier_label)
+                           <div key={`${item.id}-effect-${index}`}>
+                              {
+                                 coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), item.min_tier.tier_label)
+                              }
+                           </div>
 
-                           );
+                        );
 
-                        })
+                     })
                         : null
                   }
 
@@ -233,15 +237,16 @@ export default function ItemCard({ item }) {
             {
                item.enchantments ?
 
-                  item.enchantments.map((enchantment) => (
-                     <div key={enchantment.id} className="inline-block bg-gray-200 rounded-lg px-2 py-1 text-gray-700">
+                  item.enchantments.map((enchantment, index) => (
 
-                        <h4 className='text-sm font-bold'>{enchantment.enchantment_name}</h4>
+                     <div key={`${enchantment.id}-${index}`} className="inline-block bg-gray-200 rounded-lg px-2 py-1 text-gray-700">
 
-                        <p className='text-xs '>{enchantment.enchantment_description}</p>
+                     <h4 className='text-sm font-bold'>{enchantment.enchantment_name}</h4>
 
-                     </div>
-                  ))
+                     <p className='text-xs '>{enchantment.enchantment_description}</p>
+
+                  </div>
+               ))
 
                   : null
             }
