@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function SkillCard({ skill }) {
 
-   console.log('skill', skill);
+   // console.log('skill', skill);
 
    const tierColors = {
       bronze: 0,
@@ -20,11 +20,15 @@ export default function SkillCard({ skill }) {
 
          description = description.replace('{ n1 }', `( ${primaryValues.join(' > ')} )`);
 
+         description = description.replace('{ Tier1 }', `( ${primaryValues.join(' > ')} )`);
+
       }
 
       if (secondaryValues.length > 0) {
 
          description = description.replace('{ n2 }', `( ${secondaryValues.join(' > ')} )`);
+
+         description = description.replace('{ Tier2 }', `( ${primaryValues.join(' > ')} )`);
 
       }
 
@@ -138,7 +142,7 @@ export default function SkillCard({ skill }) {
 
             <div className="px-4 py-2">
 
-               <img className="h-28 text-center" src={imageUrl} alt={skill.skill_name} />
+               <img className="h-28 text-center rounded-full" src={imageUrl} alt={skill.skill_name} />
 
             </div>
 
