@@ -85,12 +85,9 @@ function Skills() {
 
          if (prevShowAdvancedFilters) {
 
-            setFilters({
-               tagTypes: [],
-               minTierNames: [],
-               heroIds: [],
-            });
-         }
+            resetFilters();
+
+         };
 
          return !prevShowAdvancedFilters;
 
@@ -102,13 +99,22 @@ function Skills() {
 
       setFilterMode(e.target.checked ? 'OR' : 'AND');
 
+      resetFilters();
+
+   };
+
+   function resetFilters() {
+
       setFilters({
+
          tagTypes: [],
          minTierNames: [],
+         minTierSizes: [],
          heroIds: [],
+
       });
 
-   }
+   };
 
    const filteredSkills = skills.filter((skill) => {
 
@@ -172,7 +178,7 @@ function Skills() {
 
    // console.log('heroes', heroes);
 
-   console.log('skills', skills);
+   // console.log('skills', skills);
 
    // console.log('tiers', tiers);
 
@@ -188,7 +194,7 @@ function Skills() {
 
             <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
 
-            <button onClick={handleToggleFilters} className={`border mt-2 p-2 ${showAdvancedFilters ? 'border-gray-100 bg-gray-100 text-gray-800 rounded-t' : 'rounded'}`}>
+            <button onClick={handleToggleFilters} className={`border font-semibold mt-2 px-4 ${showAdvancedFilters ? 'border-gray-100 bg-gray-100 text-gray-800 rounded-t' : 'rounded'}`}>
 
                Advanced Filters
 
@@ -200,6 +206,7 @@ function Skills() {
                   onFilterChange={handleFilterChange}
                   filterMode={filterMode}
                   onFilterModeChange={handleFilterModeChange}
+                  resetFilters={resetFilters}
                />
             )}
 
