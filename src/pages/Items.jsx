@@ -6,10 +6,7 @@ import AdvancedFilters from '../components/AdvancedFilters';
 
 function Items() {
 
-   const [heroes, setHeroes] = useState([]);
    const [items, setItems] = useState([]);
-   const [tags, setTags] = useState([]);
-   const [tiers, setTiers] = useState([]);
    const [loading, setLoading] = useState(true);
    const [loadingError, setLoadingError] = useState(null);
    const [searchTerm, setSearchTerm] = useState('');
@@ -38,84 +35,6 @@ function Items() {
       } catch (err) {
 
          console.error('Error fetching items:', err);
-
-         setLoadingError(err.message);
-
-      } finally {
-
-         setLoading(false);
-
-      };
-
-   };
-
-   async function fetchTiers() {
-
-      try {
-
-         setLoading(true);
-
-         const response = await axios.get('/tiers');
-
-         const result = await response.data.result;
-
-         setTiers(result.tiers);
-
-      } catch (err) {
-
-         console.error('Error fetching tiers:', err);
-
-         setLoadingError(err.message);
-
-      } finally {
-
-         setLoading(false);
-
-      };
-
-   };
-
-   async function fetchTags() {
-
-      try {
-
-         setLoading(true);
-
-         const response = await axios.get('/tags');
-
-         const result = await response.data.result;
-
-         setTags(result.tags);
-
-      } catch (err) {
-
-         console.error('Error fetching tags:', err);
-
-         setLoadingError(err.message);
-
-      } finally {
-
-         setLoading(false);
-
-      };
-
-   };
-
-   async function fetchHeroes() {
-
-      try {
-
-         setLoading(true);
-
-         const response = await axios.get('/heroes');
-
-         const result = await response.data.result;
-
-         setHeroes(result.heroes);
-
-      } catch (err) {
-
-         console.error('Error fetching heroes:', err);
 
          setLoadingError(err.message);
 
@@ -249,10 +168,7 @@ function Items() {
 
       Promise.all([
 
-         fetchHeroes(),
          fetchItems(),
-         fetchTags(),
-         fetchTiers()
 
       ])
          .then(() => setIsLoaded(true))
@@ -263,7 +179,7 @@ function Items() {
 
    // console.log('heroes', heroes);
 
-   // console.log('items', items);
+console.log('items', items);
 
    // console.log('tiers', tiers);
 
@@ -289,9 +205,6 @@ function Items() {
                <AdvancedFilters
                   filters={filters}
                   onFilterChange={handleFilterChange}
-                  heroes={heroes}
-                  tiers={tiers}
-                  tags={tags}
                   filterMode={filterMode}
                   onFilterModeChange={handleFilterModeChange}
                />
