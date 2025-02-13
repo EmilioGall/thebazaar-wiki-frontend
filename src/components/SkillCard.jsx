@@ -87,85 +87,91 @@ export default function SkillCard({ skill }) {
 
          <div className='flex justify-between gap-4'>
 
-            <div>
+            {/* Infos Blocks */}
+            <div key={skill.id} className="px-4 py-2">
 
-               <div key={skill.id} className="px-4 py-2">
+               {/* Name, MinTier and Hero Block */}
+               <div className='flex space-x-2 mb-2'>
 
-                  <div className='flex space-x-2 mb-2'>
+                  <h2 className="font-bold text-xl">{skill.skill_name}</h2>
 
-                     <h2 className="font-bold text-xl">{skill.skill_name}</h2>
+                  <span className="text-gray-700 text-base border rounded-lg px-2">
 
-                     <span className="text-gray-700 text-base border rounded-lg px-2">
+                     {`${String(skill.min_tier.tier_label).charAt(0).toUpperCase() + String(skill.min_tier.tier_label).slice(1)}+`}
 
-                        {`${String(skill.min_tier.tier_label).charAt(0).toUpperCase() + String(skill.min_tier.tier_label).slice(1)}+`}
-
-                     </span>
-
-                     {
-                        skill.heroes.map((hero, heroIndex) => (
-                           <span key={heroIndex} className="text-gray-700 text-base border rounded-lg px-2">
-
-                              {hero.hero_name}
-
-                           </span>
-                        ))
-                     }
-
-
-                  </div>
+                  </span>
 
                   {
-                     skill.tags ?
-                        <div className='flex gap-2 py-2'>
-                           {
-                              skill.tags.map((tag, index) => {
+                     skill.heroes.map((hero, heroIndex) => (
+                        <span key={heroIndex} className="text-gray-700 text-base border rounded-lg px-2">
 
-                                 return (
+                           {hero.hero_name}
 
-                                    <p key={`${skill.id}-${tag.tag_type}-${tag.tag_name}`} className="text-gray-700 text-base border rounded-lg px-2">
-
-                                       {tag.tag_name}
-
-                                    </p>
-
-                                 );
-
-                              })
-                           }
-                        </div>
-                        : null
+                        </span>
+                     ))
                   }
 
-                  {
-                     skill.skill_tiers ?
-                        skill.skill_tiers[0].effects.map((effect, index) => {
-
-                           const primaryValues = skill.skill_tiers.map(tier => tier.effects[index].pivot.primary_value).filter(value => value !== null);
-                           const secondaryValues = skill.skill_tiers.map(tier => tier.effects[index].pivot.secondary_value).filter(value => value !== null);
-
-                           return (
-
-                              <div key={`${skill.id}-effect-${index}`}>
-                                 {
-                                    coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), skill.min_tier.tier_label)
-                                 }
-                              </div>
-
-                           );
-
-                        })
-                        : null
-                  }
 
                </div>
+               {/* Name, MinTier and Hero Block */}
+
+               {/* Tags Block */}
+               {
+                  skill.tags ?
+                     <div className='flex gap-2 py-2'>
+                        {
+                           skill.tags.map((tag, index) => {
+
+                              return (
+
+                                 <p key={`${skill.id}-${tag.tag_type}-${tag.tag_name}`} className="text-gray-700 text-base border rounded-lg px-2">
+
+                                    {tag.tag_name}
+
+                                 </p>
+
+                              );
+
+                           })
+                        }
+                     </div>
+                     : null
+               }
+               {/* Tags Block */}
+
+               {/* Tiers Block */}
+               {
+                  skill.skill_tiers ?
+                     skill.skill_tiers[0].effects.map((effect, index) => {
+
+                        const primaryValues = skill.skill_tiers.map(tier => tier.effects[index].pivot.primary_value).filter(value => value !== null);
+                        const secondaryValues = skill.skill_tiers.map(tier => tier.effects[index].pivot.secondary_value).filter(value => value !== null);
+
+                        return (
+
+                           <div key={`${skill.id}-effect-${index}`}>
+                              {
+                                 coloredEffectString(replacePlaceholders(effect.effect_description, primaryValues, secondaryValues), skill.min_tier.tier_label)
+                              }
+                           </div>
+
+                        );
+
+                     })
+                     : null
+               }
+               {/* Tiers Block */}
 
             </div>
+            {/* Infos Blocks */}
 
+            {/* Image Block */}
             <div className="px-4 py-2">
 
                <img className="h-28 text-center rounded-full" src={imageUrl} alt={skill.skill_name} />
 
             </div>
+            {/* Image Block */}
 
          </div>
 

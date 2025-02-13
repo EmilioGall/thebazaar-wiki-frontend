@@ -122,28 +122,39 @@ export default function ItemCard({ item }) {
 
          <div className='flex justify-between gap-4'>
 
+            {/* Infos Blocks */}
             <div>
 
+               {/* Main Info Block */}
                <div className="px-4 py-2">
 
+                  {/* Name, MinTier and Hero Block */}
                   <div className='flex space-x-2 mb-2'>
 
+                     {/* Name */}
                      <h2 className="font-bold text-xl">{item.item_name}</h2>
+                     {/* Name */}
 
+                     {/* MinTier */}
                      <span className="text-gray-700 text-base border rounded-lg px-2">
 
                         {`${String(item.min_tier.tier_label).charAt(0).toUpperCase() + String(item.min_tier.tier_label).slice(1)}+`}
 
                      </span>
+                     {/* MinTier */}
 
+                     {/* Hero */}
                      <span className="text-gray-700 text-base border rounded-lg px-2">
 
                         {item.hero.hero_name}
 
                      </span>
+                     {/* Hero */}
 
                   </div>
+                  {/* Name, MinTier and Hero Block */}
 
+                  {/* Tags Block */}
                   {
                      item.tags ?
                         <div className='flex gap-2 py-2'>
@@ -165,7 +176,9 @@ export default function ItemCard({ item }) {
                         </div>
                         : null
                   }
+                  {/* Tags Block */}
 
+                  {/* Effects Block */}
                   {
                      item.item_tiers ?
                         item.item_tiers[0].effects.map((effect, index) => {
@@ -187,9 +200,12 @@ export default function ItemCard({ item }) {
                         })
                         : null
                   }
+                  {/* Effects Block */}
 
                </div>
+               {/* Main Info Block */}
 
+               {/* Cooldown, Ammo and Multicast Block */}
                <div className="flex gap-4 px-4 py-2">
 
                   {
@@ -241,17 +257,22 @@ export default function ItemCard({ item }) {
                   }
 
                </div>
+               {/* Cooldown, Ammo and Multicast Block */}
 
             </div>
+            {/* Infos Blocks */}
 
+            {/* Image Blocks */}
             <div className="px-4 py-2">
 
                <img className="h-28 text-center" src={imageUrl} alt={item.item_name} />
 
             </div>
+            {/* Image Blocks */}
 
          </div>
 
+         {/* Enchantments Blocks */}
          <div className="grid grid-cols-5 gap-2 px-4 py-2">
 
             {
@@ -272,6 +293,7 @@ export default function ItemCard({ item }) {
             }
 
          </div>
+         {/* Enchantments Blocks */}
 
       </div>
 
