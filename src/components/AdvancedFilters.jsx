@@ -152,7 +152,7 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
 
                     <h4 className="font-semibold">Search Mode ( <span className='text-sm'>{filterMode}</span> )</h4>
 
-                    <label className="relative inline-flex items-center cursor-pointer">
+                    <label className="relative inline-flex items-center cursor-pointer mt-1">
                         <input
                             type="checkbox"
                             className="sr-only peer"
