@@ -166,6 +166,8 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
 
                         </label>
 
+                    </div>
+
                 </div>
 
             </div>
