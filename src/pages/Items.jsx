@@ -86,13 +86,9 @@ function Items() {
 
          if (prevShowAdvancedFilters) {
 
-            setFilters({
-               tagTypes: [],
-               minTierNames: [],
-               minTierSizes: [],
-               heroIds: [],
-            });
-         }
+            resetFilters();
+
+         };
 
          return !prevShowAdvancedFilters;
 
@@ -104,14 +100,22 @@ function Items() {
 
       setFilterMode(e.target.checked ? 'OR' : 'AND');
 
+      resetFilters();
+
+   };
+
+   function resetFilters() {
+
       setFilters({
+
          tagTypes: [],
          minTierNames: [],
          minTierSizes: [],
          heroIds: [],
+
       });
 
-   }
+   };
 
    const filteredItems = items.filter((item) => {
 
@@ -140,7 +144,7 @@ function Items() {
             });
          })
          : filterKeys.some((filterKey) => {
-            
+
             if (filters[filterKey].length === 0) return false;
 
             return filters[filterKey].some((filterValue) => {
@@ -156,7 +160,7 @@ function Items() {
                };
 
                return false;
-               
+
             });
          });
 
@@ -179,7 +183,7 @@ function Items() {
 
    // console.log('heroes', heroes);
 
-console.log('items', items);
+   console.log('items', items);
 
    // console.log('tiers', tiers);
 
@@ -195,7 +199,7 @@ console.log('items', items);
 
             <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
 
-            <button onClick={handleToggleFilters} className={`border mt-2 p-2 ${showAdvancedFilters ? 'border-gray-100 bg-gray-100 text-gray-800 rounded-t' : 'rounded'}`}>
+            <button onClick={handleToggleFilters} className={`border font-semibold mt-2 px-4 ${showAdvancedFilters ? 'border-gray-100 bg-gray-100 text-gray-800 rounded-t' : 'rounded'}`}>
 
                Advanced Filters
 
@@ -207,6 +211,7 @@ console.log('items', items);
                   onFilterChange={handleFilterChange}
                   filterMode={filterMode}
                   onFilterModeChange={handleFilterModeChange}
+                  resetFilters={resetFilters}
                />
             )}
 
