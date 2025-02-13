@@ -168,7 +168,7 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
 
                     <button
                         onClick={resetFilters}
-                        className="border font-semibold px-4 py-1 rounded border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                        className="border font-semibold px-4 py-1 rounded-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
                     >
                         Reset Filters
                     </button>
@@ -188,16 +188,20 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
                         <div className="flex items-center space-x-2 basis-10/12">
                             {
                                 heroes.map((hero) => (
-                                    <div key={hero.id} className="flex space-x-1">
+                                    <label key={hero.id} className={`flex items-center px-3 py-1 rounded-full cursor-pointer hover:bg-gray-400 hover:text-white ${filters.heroIds.includes((hero.id).toString()) ? 'bg-yellow-500' : 'bg-gray-300 text-gray-700'}`}>
+
                                         <input
                                             type="checkbox"
                                             name="heroIds"
                                             value={hero.id}
                                             checked={filters.heroIds.includes((hero.id).toString())}
                                             onChange={onFilterChange}
+                                            className="sr-only"
                                         />
-                                        <label className='text-sm'>{hero.hero_name}</label>
-                                    </div>
+                                        
+                                        <span className='text-sm'>{hero.hero_name}</span>
+
+                                    </label>
                                 ))
                             }
                         </div>
@@ -226,7 +230,7 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
                                         printedTierLabels.push(tier.tier_label);
 
                                         return (
-                                            <div key={tier.id} className="flex space-x-1">
+                                            <label key={tier.id} className={`flex items-center px-3 py-1 rounded-full cursor-pointer hover:bg-gray-400 hover:text-white ${filters.minTierNames.includes(tier.tier_label) ? 'bg-yellow-500' : 'bg-gray-300 text-gray-700'}`}>
 
                                                 <input
                                                     type="checkbox"
@@ -234,13 +238,12 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
                                                     value={tier.tier_label}
                                                     checked={filters.minTierNames.includes(tier.tier_label)}
                                                     onChange={onFilterChange}
+                                                    className="sr-only"
                                                 />
 
-                                                <label className='text-sm'>
-                                                    {String(tier.tier_label).charAt(0).toUpperCase() + String(tier.tier_label).slice(1)}
-                                                </label>
+                                                <span className='text-sm'>{String(tier.tier_label).charAt(0).toUpperCase() + String(tier.tier_label).slice(1)}</span>
 
-                                            </div>
+                                            </label>
                                         );
                                     }
                                 })
@@ -261,7 +264,7 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
                         <div className="flex items-center space-x-2 basis-10/12">
                             {
                                 ['small', 'medium', 'large'].map((size) => (
-                                    <div key={size} className="flex space-x-1">
+                                    <label key={size} className={`flex items-center px-3 py-1 rounded-full cursor-pointer hover:bg-gray-400 hover:text-white ${filters.minTierSizes.includes(size) ? 'bg-yellow-500' : 'bg-gray-300 text-gray-700'}`}>
 
                                         <input
                                             type="checkbox"
@@ -269,11 +272,12 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
                                             value={size}
                                             checked={filters.minTierSizes.includes(size)}
                                             onChange={onFilterChange}
+                                            className="sr-only"
                                         />
 
-                                        <label className='text-sm'>{size.charAt(0).toUpperCase() + size.slice(1)}</label>
+                                        <span className='text-sm'>{size.charAt(0).toUpperCase() + size.slice(1)}</span>
 
-                                    </div>
+                                    </label>
                                 ))
                             }
                         </div>
@@ -294,14 +298,14 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
                         <div className="flex flex-col space-y-2 basis-10/12">
                             {
                                 Object.entries(groupedTags).map(([type, tags]) => (
-                                    <div key={type} className="flex space-x-2 rounded bg-gray-300 px-2">
+                                    <div key={type} className="flex space-x-2 rounded bg-gray-100 px-2 py-1">
 
                                         <h5 className="italic basis-2/12">{String(type).charAt(0).toUpperCase() + String(type).slice(1) + ':'}</h5>
 
                                         <div className="flex items-center flex-wrap gap-2 basis-10/12">
                                             {
                                                 tags.map((tag) => (
-                                                    <div key={tag.id} className="flex items-center">
+                                                    <label key={tag.id} className={`flex items-center px-3 rounded-full cursor-pointer hover:bg-gray-400 hover:text-white ${filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name) ? 'bg-yellow-500' : 'bg-gray-200 text-gray-700'}`}>
 
                                                         <input
                                                             type="checkbox"
@@ -309,12 +313,12 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
                                                             value={tag.tag_type + ':' + tag.tag_name}
                                                             checked={filters.tagTypes.includes(tag.tag_type + ':' + tag.tag_name)}
                                                             onChange={onFilterChange}
-                                                            className="mr-2"
+                                                            className="sr-only"
                                                         />
 
-                                                        <label className='text-sm'>{tag.tag_name}</label>
+                                                        <span className='text-sm'>{tag.tag_name}</span>
 
-                                                    </div>
+                                                    </label>
                                                 ))
                                             }
                                         </div>
