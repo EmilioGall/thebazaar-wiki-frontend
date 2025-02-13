@@ -132,13 +132,13 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
 
     if (loading) {
 
-        return <div className='bg-gray-100 rounded text-center mx-auto py-5'>Loading filters. Please wait...</div>;
+        return <div className='bg-gray-100 rounded rounded-tl-0 p-2 text-center mx-auto py-5'>Loading filters. Please wait...</div>;
 
     };
 
     if (loadingError) {
 
-        return <div className='bg-gray-100 rounded text-center mx-auto py-5'>Loading error occurred while fetching filters. Please retry.</div>;
+        return <div className='bg-gray-100 rounded rounded-tl-0 p-2 text-center mx-auto py-5'>Loading error occurred while fetching filters. Please retry.</div>;
 
     };
 
@@ -146,23 +146,25 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
         <div className="bg-gray-100 rounded rounded-tl-0 p-2 space-y-2">
 
             {/* SearchMode Selection */}
-            <div className="rounded flex items-center bg-gray-200 p-2">
+            <div className="rounded flex justify-between items-start bg-gray-200 p-2">
 
-                <h4 className="font-semibold basis-2/12">Search Mode</h4>
+                <div>
 
-                <div className='flex items-center space-x-1 basis-10/12'>
+                    <h4 className="font-semibold basis-2/12">Search Mode</h4>
 
-                    <input
-                        type="checkbox"
-                        checked={filterMode === 'OR'}
-                        onChange={onFilterModeChange}
-                    />
+                    <div className='flex items-center space-x-1 basis-10/12'>
 
-                    <label className='text-sm'>
+                        <input
+                            type="checkbox"
+                            checked={filterMode === 'OR'}
+                            onChange={onFilterModeChange}
+                        />
 
-                        {' '}OR mode (At least one filter must match)
+                        <label className='text-sm'>
 
-                    </label>
+                            {' '}OR mode (At least one filter must match)
+
+                        </label>
 
                 </div>
 
