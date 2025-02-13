@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './pages/Home';
+import Heroes from './pages/Heroes';
 import Items from './pages/Items';
 import Skills from './pages/Skills';
 import Merchants from './pages/Merchants';
@@ -21,15 +22,21 @@ function App() {
 
           <div className="container mx-auto flex justify-between items-center">
 
-            <div className="text-lg font-bold">The Bazaar Assistant</div>
+            <NavLink
+              className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
+              to="/"
+            >
+              The Bazaar Assistant
+            </NavLink>
+            <div className="text-lg font-bold"></div>
 
             <div className="flex space-x-4">
 
               <NavLink
                 className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
-                to="/"
+                to="/heroes"
               >
-                Home
+                Heroes
               </NavLink>
               <NavLink
                 className={({ isActive }) => isActive ? 'rounded text-yellow-500 border border-yellow-500 px-2' : 'border border-gray-800 px-2'}
@@ -87,6 +94,7 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Home />} />
+          <Route path="/heroes" element={<Heroes />} />
           <Route path="/items" element={<Items />} />
           <Route path="/skills" element={<Skills />} />
           <Route path="/merchants" element={<Merchants />} />
