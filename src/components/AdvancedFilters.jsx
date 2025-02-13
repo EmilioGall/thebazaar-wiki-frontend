@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api/thebazaar-source';
 
-export default function AdvancedFilters({ filters, onFilterChange, filterMode, onFilterModeChange }) {
+export default function AdvancedFilters({ filters, onFilterChange, filterMode, onFilterModeChange, resetFilters }) {
 
     const [heroes, setHeroes] = useState([]);
     const [tags, setTags] = useState([]);
@@ -145,33 +145,38 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
     return (
         <div className="bg-gray-100 rounded rounded-tl-0 p-2 space-y-2">
 
-            {/* SearchMode Selection */}
-            <div className="rounded flex justify-between items-start bg-gray-200 p-2">
+            {/* SearchMode Selection & Reset Button */}
+            <div className="rounded flex items-center justify-between bg-gray-200 p-2">
 
-                <div>
+                <div className='flex items-center basis-6/12 space-x-1'>
 
-                    <h4 className="font-semibold basis-2/12">Search Mode</h4>
+                    <h4 className="font-semibold">Search Mode (Or / And)</h4>
 
-                    <div className='flex items-center space-x-1 basis-10/12'>
-
+                    <label className="relative inline-flex items-center cursor-pointer">
                         <input
                             type="checkbox"
+                            className="sr-only peer"
                             checked={filterMode === 'OR'}
                             onChange={onFilterModeChange}
                         />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    </label>
 
-                        <label className='text-sm'>
+                </div>
 
-                            {' '}OR mode (At least one filter must match)
+                <div className='flex justify-end basis-6/12'>
 
-                        </label>
-
-                    </div>
+                    <button
+                        onClick={resetFilters}
+                        className="border font-semibold px-4 py-1 rounded border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                    >
+                        Reset Filters
+                    </button>
 
                 </div>
 
             </div>
-            {/* SearchMode Selection */}
+            {/* SearchMode Selection & Reset Button */}
 
             {/* Hero Selection */}
             {
