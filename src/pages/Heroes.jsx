@@ -87,7 +87,7 @@ function Home() {
                   {
                      heroes.length > 0 ?
                      heroes.filter((hero) => hero.id !== 1).map((hero) => (
-                        <HeroCard hero={hero} />
+                        <HeroCard key={hero.id} hero={hero} />
                      )) :
                         null
                   }

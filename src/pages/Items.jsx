@@ -249,7 +249,7 @@ function Items() {
                      filteredItems.length > 0 ?
                         filteredItems.map((item) => (
 
-                           <ItemCard item={item} />
+                           <ItemCard key={item.id} item={item} />
 
                         )) :
                         <div className="w-full border rounded shadow-md bg-white">
