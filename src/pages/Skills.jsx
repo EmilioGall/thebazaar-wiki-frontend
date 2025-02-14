@@ -244,7 +244,7 @@ function Skills() {
                      filteredSkills.length > 0 ?
                         filteredSkills.map((skill) => (
 
-                           <SkillCard key={`skill-${skill.id}`} skill={skill} />
+                           <SkillCard skill={skill} />
 
                         )) :
                         <div className="w-full border rounded shadow-md bg-white">

@@ -8,6 +8,7 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
     const [tiers, setTiers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [loadingError, setLoadingError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
     const [groupedTags, setGroupedTags] = useState({});
 
     async function fetchTiers() {
@@ -97,7 +98,7 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
             fetchTiers(),
 
         ])
-            .then(() => setLoading(false))
+            .then(() => setIsLoaded(true))
             .catch((err) => console.error('Error loading data:', err));
     }, []);
 
@@ -198,7 +199,7 @@ export default function AdvancedFilters({ filters, onFilterChange, filterMode, o
                                             onChange={onFilterChange}
                                             className="sr-only"
                                         />
-                                        
+
                                         <span className='text-sm'>{hero.hero_name}</span>
 
                                     </label>
